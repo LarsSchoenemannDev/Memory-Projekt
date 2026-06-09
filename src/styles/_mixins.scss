@@ -1,0 +1,33 @@
+@mixin flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin rdy-h1 {
+    font-family: "Red Rose";
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 140px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+@mixin play-h2 {
+    font-family: "Almarai";
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 48px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+@mixin tr {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+@mixin td {
+    padding: 14px 16px;
+}

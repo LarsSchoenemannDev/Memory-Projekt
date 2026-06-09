@@ -1,0 +1,19 @@
+{
+  "name": "memory-projekt",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -noEmit && vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.100.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
+  }
+}
