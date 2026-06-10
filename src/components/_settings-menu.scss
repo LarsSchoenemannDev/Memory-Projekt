@@ -1,0 +1,58 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as var;
+
+.settings-menu {
+    padding: var.$max-width;
+    @include rdy-h1;
+    font-size: 54px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+
+    &__separator {
+        transform: translate(-35px, -20px);
+    }
+
+    &__form {
+        padding-left: 40px;
+    }
+
+    &__row {
+        @include tr;
+        padding: 8px 0;
+    }
+
+    &__row-title {
+        @include checked-text;
+    }
+
+    &__text {
+        @include norm-text;
+    }
+
+    &__checkbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        &:checked {
+            & ~ .default {
+                display: none;
+            }
+
+            & ~ .active {
+                display: block;
+            }
+
+            & ~ .settings-menu__text {
+                @include checked-text;
+            }
+        }
+    }
+}
+
+.wrapper-Settings {
+    margin: 36px 0;
+    max-width: 400px;
+}

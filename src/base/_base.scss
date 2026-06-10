@@ -1,0 +1,21 @@
+@use "../abstracts/variables" as var;
+
+* {
+    scroll-behavior: smooth;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Red Rose";
+    background-color: #919090;
+}
+
+.default {
+    display: block;
+}
+
+.active {
+    display: none;
+}

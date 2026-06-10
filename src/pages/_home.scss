@@ -1,0 +1,28 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as var;
+
+.main {
+    @include flex-center;
+    flex-direction: column;
+    gap: 20px;
+    height: 100vh;
+    text-align: left;
+    color: var.$primary-color;
+    background-color: #303131;
+    position: relative;
+
+    &__title {
+        @include rdy-h1;
+    }
+
+    &__subtitle {
+        @include play-h2;
+        justify-content: start;
+    }
+
+    &__background-decor {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+}

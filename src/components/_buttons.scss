@@ -1,0 +1,36 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as var;
+
+.play-btn {
+    width: 250px;
+    height: 98px;
+    margin-top: 60px;
+    @include flex-center;
+    background-color: var.$secondary-color;
+    gap: var.$gap;
+    @include play-h2;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: width 0.4s ease-in-out;
+
+    &__icon {
+        & ~ path {
+            fill: var.$primary-color;
+        }
+        transition: transform 0.4s ease-in-out;
+    }
+
+    &:hover {
+        width: 300px;
+
+        .play-btn__icon--controller {
+            transform: rotate(45deg);
+        }
+
+        .play-btn__icon--arrow {
+            width: 60px;
+            height: 40px;
+        }
+    }
+}

@@ -1,31 +1,36 @@
+@use "../abstracts/variables" as *;
+
 @mixin flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: $flex;
+    justify-content: $flex-jc;
+    align-items: $flex-al;
+}
+
+@mixin flex-direction-c {
+    display: $flex;
+    flex-direction: $flex-d-c;
+    align-items: $flex-al;
+    justify-content: $flex-jc;
 }
 
 @mixin rdy-h1 {
-    font-family: "Red Rose";
-    font-weight: 700;
-    font-style: Bold;
+    font-family: $font-main;
+    font-weight: $font-weight7;
+    font-style: $font-styleB;
     font-size: 140px;
-    line-height: 100%;
-    letter-spacing: 0%;
 }
 
 @mixin play-h2 {
-    font-family: "Almarai";
+    font-family: $font-sec;
     font-weight: 400;
-    font-style: Regular;
+    font-style: $font-styleR;
     font-size: 48px;
-    line-height: 100%;
-    letter-spacing: 0%;
 }
 
 @mixin tr {
-    display: flex;
-    gap: 12px;
-    align-items: center;
+    display: $flex;
+    align-items: $flex-al;
+    gap: $gap
 }
 
 @mixin td {
@@ -51,9 +56,6 @@
 }
 
 @mixin img-wrapper {
-    position: absolute;
-    right: 256px;
-    top: 256px;
     width: 460px;
     height: 430px;
     border-radius: 18px;
@@ -63,7 +65,7 @@
         width: calc(100% + 4px);
         height: calc(100% + 2px);
         object-fit: cover;
-        margin: -4px;        
+        margin: -4px;
         display: block;
     }
 
