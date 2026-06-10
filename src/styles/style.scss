@@ -10,6 +10,7 @@
 
 body {
     font-family: "Red Rose";
+    background-color: #919090
 }
 
 .main {
@@ -20,24 +21,25 @@ body {
     text-align: left;
     color: var.$primary-color;
     background-color: #303131;
+    position: relative;
 
-    h1 {
+    &__title {
         @include rdy-h1;
     }
 
-    h2 {
+    &__subtitle {
         @include play-h2;
-        justify-content: start
+        justify-content: start;
     }
 
-    .main-svg {
+    &__background-decor {
         position: absolute;
         left: 0;
         bottom: 0;
     }
 }
 
-.play {
+.play-btn {
     width: 250px;
     height: 98px;
     margin-top: 60px;
@@ -48,47 +50,122 @@ body {
     font-weight: 700;
     border: none;
     cursor: pointer;
+    transition: width 0.4s ease-in-out;
 
-    &svg {
-        fill: var.$primary-color;
-        transition: transform 0.4s ease-in-out;
+    &__icon {
+        &~path {
+            fill: var.$primary-color;
+        }
+
+        transition: transform 0.4s ease-in-out,
     }
 
     &:hover {
         width: 300px;
 
-        svg:first-of-type {
-            rotate: (45deg);
+        .play-btn__icon--controller {
+            transform: rotate(45deg);
         }
 
-        svg:last-of-type {
+        .play-btn__icon--arrow {
             width: 60px;
             height: 40px;
         }
     }
 }
 
-.wrapper {
+.settings-menu {
     padding: var.$max-width;
-    font-family: "Red Rose";
-    font-weight: 700;
-    font-style: Bold;
+    @include rdy-h1;
     font-size: 54px;
-    line-height: 100%;
-    letter-spacing: 0%;
+    position: relative;
 
-    >div:first-of-type {
-        svg:first-of-type {
-            transform: translate(-35px, -20px);
+    &__separator {
+        transform: translate(-35px, -20px);
+    }
+
+    &__form {
+        padding-left: 40px;
+    }
+
+    &__row {
+        @include tr;
+        padding: 8px 0;
+    }
+
+    &__row-title {
+        @include checked-text;
+    }
+
+    &__text {
+        @include norm-text;
+    }
+
+    &__checkbox {
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+
+        &:checked {
+            &~.default {
+                display: none;
+            }
+
+            &~.active {
+                display: block;
+            }
+
+            &~.settings-menu__text {
+                @include checked-text;
+            }
         }
     }
 }
 
-.row {
-    @include tr;
-    padding: 14px 0;
+.default {
+    display: block;
 }
 
+.active {
+    display: none;
+}
+
+.wrapper-Settings {
+    margin: 36px 0;
+    max-width: 400px;
+}
+
+.wrapper-img {
+    @include img-wrapper;
+}
+
+.wrapper-game-settings {
+    position: absolute; // warum wird das nicht von dem relativ im settings-menu gehalten
+    right: 215px;
+    top: 715px;
+}
+
+.game-setting {
+    @include flex-center;
+    background-color: #f6f6f6;
+    width: 550px;
+    height: 85px;
+}
+
+// .settings-menu__checkbox:checked~.default {
+//     display: none;
+// }
+
+// .settings-menu__checkbox:checked {
+//     &~.active {
+//         display: block;
+//     }
+
+//     &~.settings-menu__text {
+//         @include checked-text;
+//     }
+// }
 
 // .card {
 //     height: 100px;
@@ -125,4 +202,4 @@ body {
 //         transform: rotateY(180deg);
 
 //     }
-// }
+// 

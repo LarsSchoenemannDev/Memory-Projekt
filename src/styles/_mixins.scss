@@ -31,3 +31,40 @@
 @mixin td {
     padding: 14px 16px;
 }
+
+@mixin checked-text {
+    font-family: Almarai;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+@mixin norm-text {
+    font-family: Almarai;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+}
+
+@mixin img-wrapper {
+    position: absolute;
+    right: 256px;
+    top: 256px;
+    width: 460px;
+    height: 430px;
+    border-radius: 18px;
+    overflow: hidden;
+
+    img {
+        width: calc(100% + 4px);
+        height: calc(100% + 2px);
+        object-fit: cover;
+        margin: -4px;        
+        display: block;
+    }
+
+}
