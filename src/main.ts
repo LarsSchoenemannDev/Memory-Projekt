@@ -1,12 +1,24 @@
 import "./main.scss"
 
+interface gameSettings {
+    img: [];
+    player: string[];
+    mapSize: string[];
+}
+
+const gameSettings = {
+    theme: [],
+    player: [],
+    mapSize: []
+};
 
 init(
 
 )
 
 function init() {
-layoutChange()
+    layoutChange()
+    changeImg()
 }
 
 // function init() {
@@ -22,9 +34,28 @@ layoutChange()
 // }
 
 function layoutChange() {
-    const img = document.getElementById("theme-img")
-    if (img) {
-        img.src = "assets/img/blue.png"
-
-    }
+    const checked = Array.from(document.querySelectorAll<HTMLElement>(":checked")); // daten hollen 
+    if (checked.length > 0) {
+        checked.forEach(e => {
+            const data = e.dataset
+            if (e.dataset.theme) {
+                gameSettings.theme.push(data.theme);
+            }
+            if (data.playerselect) {
+                gameSettings.player.push(data.playerselect);
+            }
+            if (data.size) {
+                gameSettings.mapSize.push(data.size);
+            }
+        })
+    }    
 }
+
+function changeImg() {
+    const img = document.querySelectorAll<HTMLElement>("#theme-img");
+    let x = img
+    x.include(scr)
+    console.log(x.length);
+}
+
+// daten hollen am besten alle thems dann mit forech if abgleich frage und das bild schalten dann einfach am besten per onclick interhängen
