@@ -46,3 +46,7 @@
         font-size: var.$font-16;
     }
 }
+
+.hidden {
+    @include hidden
+}

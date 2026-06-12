@@ -58,15 +58,21 @@
 @mixin img-wrapper {
     width: 460px;
     height: 430px;
+    position: relative;
     border-radius: 18px;
-    overflow: hidden;
 
     img {
+        position: absolute;
         width: calc(100% + 4px);
         height: calc(100% + 2px);
         object-fit: cover;
         margin: -4px;
-        display: block;
     }
+
+}
+
+@mixin hidden {
+    opacity: 0;
+    visibility: 0;
 
 }
