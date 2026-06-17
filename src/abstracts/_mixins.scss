@@ -76,3 +76,116 @@
     visibility: 0;
 
 }
+
+@mixin code-vibes-theme {
+    background-color: #303131;
+    height: 100vh;
+    max-width: 1440px;
+    margin: 0 auto;
+    display: $flex;
+    flex-direction: column;
+
+    &__header {
+        display: $flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 16px 64px;
+    }
+
+    &__player-stats {
+        display: $flex;
+        align-items: $flex-al;
+        gap: $gap;
+        width: 300px;
+        height: 65px;
+        background-color: #415652;
+        border: 2px solid royalblue;
+        padding: 0 16px;
+    }
+
+    &__current-player {
+        display: $flex;
+        justify-content: $flex-jc;
+        align-items: center;
+        gap: $gap;
+    }
+
+    &__exit-btn {
+        display: $flex;
+        align-items: $flex-al;
+        height: 65px;
+        background-color: #415652;
+        padding: 0 30px;
+        gap: $gap;
+        font-size: 22px;
+        font-weight: $font-weight7;
+        color: $primary-color;
+        border: none;
+        cursor: pointer;
+    }
+
+    &__layout {
+        display: grid;
+        grid-template-rows: repeat(4, 1fr);
+        gap: 8px;
+        grid-template-columns: repeat(4, 1fr);
+        width: fit-content;
+        margin: 0 auto;
+    }
+}
+
+// &end-game-over {}
+
+// &end-game-won {}
+
+// &end-draw {}
+
+// &pop-up {
+//     &span {}
+
+//     &btn {}
+// }
+
+
+// @mixin da-projects-theme {
+//     &player-stats {}
+
+//     &current-player {}
+
+//     &exit-btn {}
+
+//     &end-game-over {}
+
+//     &end-game-won {}
+
+//     &end-draw {}
+// }
+
+// @mixin gaming-theme {
+//     &player-stats {}
+
+//     &current-player {}
+
+//     &exit-btn {}
+
+//     &end-game-over {}
+
+//     &end-game-won {}
+
+//     &end-draw {}
+// }
+
+// @mixin foods-theme {
+//     &player-stats {}
+
+//     &current-player {}
+
+//     &exit-btn {}
+
+//     &end-game-over {}
+
+//     &end-game-won {}
+
+//     &end-draw {}
+// }

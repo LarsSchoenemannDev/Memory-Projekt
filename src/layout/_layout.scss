@@ -8,14 +8,12 @@
     &__left {
         @include flex-direction-c;
         align-items: start;
-        width: 720px;
-        border: 2px solid salmon;
+        flex: 1;       
     }
 
     &__right {
         @include flex-direction-c;
-        width: 1000px;
-        border: 2px solid red;
+        flex: 2;        
         gap: var.$gap;
     }
 
@@ -23,11 +21,16 @@
         @include img-wrapper;
     }
 
+    &--question {
+        transform: translate(0%, -10%);
+        object-fit: contain !important;
+    }
+
     &__game-settings {
         @include play-h2;
         @include flex-center;
         background-color: var.$bg-color;
-        min-width: 100%;
+        min-width: 450px;
         height: 85px;
         font-size: 22px;
         gap: var.$gap;
@@ -37,8 +40,6 @@
         &p {
             width: 24px;
             height: 100%;
-
-
         }
     }
 
@@ -57,4 +58,8 @@
 
 .hidden {
     @include hidden
+}
+
+.code-vibes-theme {
+    @include code-vibes-theme
 }
