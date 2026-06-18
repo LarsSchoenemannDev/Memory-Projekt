@@ -8,12 +8,12 @@
     &__left {
         @include flex-direction-c;
         align-items: start;
-        flex: 1;       
+        flex: 1;
     }
 
     &__right {
         @include flex-direction-c;
-        flex: 2;        
+        flex: 2;
         gap: var.$gap;
     }
 
@@ -62,4 +62,16 @@
 
 .code-vibes-theme {
     @include code-vibes-theme
+}
+
+.first-Card {
+    background-color: red;
+    z-index: 100;
+    box-shadow: 5px 10px #e71607;
+}
+
+.sec-Card {
+    background-color: rgb(18, 33, 235);
+    z-index: 100;
+    box-shadow: 5px 10px #320ae6;
 }

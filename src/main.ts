@@ -51,10 +51,10 @@ function changeImg() {
             const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
             const isMatch = e.src.toLowerCase().includes(theme);
             if (isMatch) {
-                console.log("hit true");
+
                 e.classList.remove("hidden");
             } else {
-                console.log("never hit");
+
                 e.classList.add("hidden");
             }
         });
@@ -91,8 +91,8 @@ function gameLayout() {
     if (content) {
         content.innerHTML = "";
         const cards = cardsGenerate(gameSettings.mapSize)
-        cards.forEach((cardValue, index) => {
-            content.innerHTML += gameLayoutInnerHTML(cardValue, index)
+        cards.forEach((cardValue) => {
+            content.innerHTML += gameLayoutInnerHTML(cardValue)
         })
     }
 }
@@ -103,14 +103,51 @@ if (game) {
         const target = event.target as HTMLElement;
         const closest = target.closest(".gameLayout") as HTMLElement | null;
         if (closest) {
-            playerPick(closest.dataset);
+            pickMatch(closest);
         }
     });
 }
+let firstPick: string | null = null;
+let secPick: string | null = null;
+function pickMatch(closest: HTMLElement): void {
+    if (firstPick === null) {
+        firstPick = closest.dataset.card;  // id der karte
+        closest.classList.add("first-Card"); // add styling nach pick
+    } else if (firstPick !== null) { 
+        secPick = closest.dataset.card // id der karte 
+        closest.classList.add("sec-Card");
+    }
 
-function playerPick(target: DOMStringMap): void {
-    console.log("ausgabe der e.targets", target);
+    if (matched() === true) {
+        closest.classList.remove("first-Card") // kommen wir immer rein bei doppel pick
+
+    } else if (matched() === false) {
+        closest.classList.remove("sec-Card")
+    }
 }
+
+function matched() { // simpler vergleich  der muss aber auch denn status der ids zurücklsetzen und das styling
+    if (firstPick === null && secPick === null) { 
+        return
+    } else if (firstPick !== null && secPick !== null) { 
+        if (firstPick == secPick) {
+            console.log("win");
+            console.log(firstPick, secPick);
+            firstPick = null
+            secPick = null
+            return true
+        } else {
+            console.log("lose");
+            console.log(firstPick, secPick);
+            firstPick = null
+            secPick = null
+            return false
+        }
+
+    }
+}
+
+
 
 
 
