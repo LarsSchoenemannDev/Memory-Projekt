@@ -26,8 +26,8 @@ export function gameStatsInnerHTML(theme, player, mapSize) {
 
 
 
-export function gameLayoutInnerHTML(value) {
-    return `<div class="gameLayout" data-card="${value}"">    
+export function gameLayoutInnerHTML(value, i) {
+    return `<div class="gameLayout" data-card="${value}" data-card-index="${i}"">    
     <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect width="120" height="120" fill="url(#paint0_linear_17096_2010)"/>
 <rect x="30" y="36" width="60" height="48" fill="url(#pattern0_17096_2010)" fill-opacity="0.2"/>
