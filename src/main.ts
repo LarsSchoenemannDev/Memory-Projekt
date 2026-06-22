@@ -1,5 +1,5 @@
 import { } from "./main.scss";
-import { GameSettings } from "./interfaces";
+import { firstPick, GameSettings, secPick } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
 
@@ -9,21 +9,65 @@ const gameSettings: GameSettings = {
     mapSize: []
 };
 
-const firstPick = {
+const theme = {
+    "code-vibes-theme": [
+        "assets/img/themes/code/Property 1=Component 22-1.png",
+        "assets/img/themes/code/Property 1=Component 22-2.png",
+        "assets/img/themes/code/Property 1=Component 22-3.png",
+        "assets/img/themes/code/Property 1=Component 22-4.png",
+        "assets/img/themes/code/Property 1=Component 22-5.png",
+        "assets/img/themes/code/Property 1=Component 22-6.png",
+        "assets/img/themes/code/Property 1=Component 22-7.png",
+        "assets/img/themes/code/Property 1=Component 22-8.png",
+        "assets/img/themes/code/Property 1=Component 22-9.png",
+        "assets/img/themes/code/Property 1=Component 22-10.png",
+        "assets/img/themes/code/Property 1=Component 22-11.png",
+        "assets/img/themes/code/Property 1=Component 22-12.png",
+        "assets/img/themes/code/Property 1=Component 22-13.png",
+        "assets/img/themes/code/Property 1=Component 22-14.png",
+        "assets/img/themes/code/Property 1=Component 22-15.png",
+        "assets/img/themes/code/Property 1=Component 22-16.png",
+        "assets/img/themes/code/Property 1=Component 22-17.png",
+        "assets/img/themes/code/Property 1=Component 22-18.png",
+    ],
+    codeFront: ["assets/img/themes/code/Front.png"],
+    "gaming-theme": [
+        "assets/img/themes/gaming/Property 1=Component 2-1.png",
+        "assets/img/themes/gaming/Property 1=Component 2-2.png",
+        "assets/img/themes/gaming/Property 1=Component 2-3.png",
+        "assets/img/themes/gaming/Property 1=Component 2-4.png",
+        "assets/img/themes/gaming/Property 1=Component 2-5.png",
+        "assets/img/themes/gaming/Property 1=Component 2-6.png",
+        "assets/img/themes/gaming/Property 1=Component 2-7.png",
+        "assets/img/themes/gaming/Property 1=Component 2-8.png",
+        "assets/img/themes/gaming/Property 1=Component 2-9.png",
+        "assets/img/themes/gaming/Property 1=Component 2-10.png",
+        "assets/img/themes/gaming/Property 1=Component 2-11.png",
+        "assets/img/themes/gaming/Property 1=Component 2-12.png",
+        "assets/img/themes/gaming/Property 1=Component 2-13.png",
+        "assets/img/themes/gaming/Property 1=Component 2-14.png",
+        "assets/img/themes/gaming/Property 1=Component 2-15.png",
+        "assets/img/themes/gaming/Property 1=Component 2-16.png",
+        "assets/img/themes/gaming/Property 1=Component 2-17.png",
+        "assets/img/themes/gaming/Property 1=Component 2-18.png",
+    ],
+    gamingFront: ["assets/img/themes/gaming/Front.png"]
+}
+
+console.log(theme);
+
+
+const firstPick: firstPick = {
     cardid: null,
     cardindex: null,
     cardelement: null,
 }
-const secPick = {
+const secPick: secPick = {
     cardid: null,
-    cardIndex: null,
-    cardElement: null,
+    cardindex: null,
+    cardelement: null,
 }
 
-// let firstPick: string | null = null;
-// let secPick: string | null = null;
-// let firstPickIndex: string | null = null
-// let secPickIndex: string | null = null
 let game = document.getElementById("gameLayout");
 
 init()
@@ -33,6 +77,7 @@ function init() {
     changeImg()
     updateSettingsUI()
     gameLayout()
+
 }
 
 function clearform() {
@@ -71,7 +116,6 @@ function changeImg(): void {
 
                 e.classList.remove("hidden");
             } else {
-
                 e.classList.add("hidden");
             }
         });
@@ -103,13 +147,17 @@ function updateSettingsUI(): void {
 }
 
 function gameLayout(): void {
-    const content = document.getElementById("gameLayout")
+    const content = document.getElementById("gameLayout");
     if (content) {
         content.innerHTML = "";
-        const cards = cardsGenerate(gameSettings.mapSize)
+        const img = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
+        console.log("slug:", img);
+        let frontImg = img === "code-vibes-theme" ? theme.codeFront : theme.gamingFront
+        const images = theme[img as keyof typeof theme] as string[];
+        const cards = cardsGenerate(gameSettings.mapSize[0]);
         cards.forEach((cardValue, i) => {
-            content.innerHTML += gameLayoutInnerHTML(cardValue, i)
-        })
+            content.innerHTML += gameLayoutInnerHTML(cardValue, i, images[cardValue], frontImg);
+        });
     }
 }
 
@@ -123,20 +171,31 @@ if (game) {
     });
 }
 
-function datatrnsform(target: null | string | HTMLElement) {
-    if (firstPick.cardid === null) {
-        firstPick.cardid = target.closest(".gameLayout") as HTMLElement
-        firstPick.cardindex = target.closest(".gameLayout").dataset.cardIndex as HTMLElement
-        firstPick.cardelement = target
-        console.log(firstPick);
-    } else if (secPick.cardid === null) {
-        secPick.cardid = target.closest(".gameLayout") as HTMLElement
-        secPick.cardindex = target.closest(".gameLayout").dataset.cardIndex as HTMLElement
-        secPick.cardelement = target
-        console.log(secPick);
-        gameEngine()
-    }
+function datatrnsform(target: HTMLElement) {
+    const wrapper = target.closest(".wrapper") as HTMLElement;
 
+    if (!wrapper) return;
+
+    if (firstPick.cardid === null) {
+        firstPick.cardid = wrapper;
+        firstPick.cardindex = wrapper.dataset.cardIndex ?? null;
+        firstPick.cardelement = target;
+        console.log(firstPick);
+        stylePick(target);
+    } else if (secPick.cardid === null) {
+        secPick.cardid = wrapper;
+        secPick.cardindex = wrapper.dataset.cardIndex ?? null;
+        secPick.cardelement = target;
+        console.log(secPick);
+        stylePick(target);
+        gameEngine();
+    }
+}
+
+function stylePick(target: HTMLElement): void {
+    const layout = target.closest(".wrapper");
+    if (!layout) return;
+    layout.classList.add("flipped");
 }
 
 function gameEngine() {
@@ -144,21 +203,20 @@ function gameEngine() {
         return;
     }
     const result = matched();
-
     if (result) {
+
+        win()
         console.log("Muster matched! Ein Paar gefunden!");
-        resetRound()
     } else {
+        lose()
         console.log("Leider falsch!");
-        resetRound()
     }
 }
 
 function matched(): boolean {
-    if (firstPick === null || secPick === null) {
-        return false;
-    }
-    return firstPick.cardid === secPick.cardid;
+    const cardone = (firstPick.cardid as HTMLElement)?.dataset.card;
+    const cardtwo = (secPick.cardid as HTMLElement)?.dataset.card;
+    return cardone !== undefined && cardone === cardtwo;
 }
 
 function resetRound(): void {
@@ -172,10 +230,8 @@ function resetRound(): void {
 
 function win(): void {
     setTimeout(() => {
-        styleReset()
-        resetRound()
+        resetRound();
     }, 20);
-
 }
 
 function lose(): void {
@@ -186,14 +242,9 @@ function lose(): void {
 
 }
 
-function styleReset() {
-    let x = document.querySelectorAll("data.cardindex")
-    console.log(x);
-
-
-
-
-
+function styleReset(): void {
+    firstPick.cardelement?.closest(".wrapper")?.classList.remove("flipped");
+    secPick.cardelement?.closest(".wrapper")?.classList.remove("flipped");
 }
 
 
