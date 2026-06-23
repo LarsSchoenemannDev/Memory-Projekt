@@ -172,9 +172,11 @@ if (game) {
 }
 
 function datatrnsform(target: HTMLElement) {
-    const wrapper = target.closest(".wrapper") as HTMLElement;
+    const wrapper = target.closest(".flip") as HTMLElement;
 
     if (!wrapper) return;
+    if (wrapper.classList.contains("flipped")) return;
+    if (wrapper === firstPick.cardid) return;
 
     if (firstPick.cardid === null) {
         firstPick.cardid = wrapper;
@@ -193,7 +195,7 @@ function datatrnsform(target: HTMLElement) {
 }
 
 function stylePick(target: HTMLElement): void {
-    const layout = target.closest(".wrapper");
+    const layout = target.closest(".flip");
     if (!layout) return;
     layout.classList.add("flipped");
 }
@@ -238,13 +240,13 @@ function lose(): void {
     setTimeout(() => {
         styleReset()
         resetRound()
-    }, 20);
+    }, 800);
 
 }
 
 function styleReset(): void {
-    firstPick.cardelement?.closest(".wrapper")?.classList.remove("flipped");
-    secPick.cardelement?.closest(".wrapper")?.classList.remove("flipped");
+    firstPick.cardelement?.closest(".flip")?.classList.remove("flipped");
+    secPick.cardelement?.closest(".flip")?.classList.remove("flipped");
 }
 
 

@@ -28,15 +28,15 @@ export function gameStatsInnerHTML(theme, player, mapSize) {
 
 export function gameLayoutInnerHTML(value: number, i: number, imgSrc: string, frontImg: string) {
     return `
-        <div class="wrapper" data-card="${value}" data-card-index="${i}">
-            <div class="card-inner">
-                            <div class="card-front">
-                    <img src="${frontImg}" alt="card back" />
-                </div>
-                <div class="card-back">                    
-                    <img src="${imgSrc}" alt="card ${value}" />
-                </div>
+    <div class="flip" data-card="${value}" data-card-index="${i}">
+        <div class="card-inner">
+            <div class="card-back">
+                <img src="${frontImg}"/> 
+            </div>
+            <div class="card-front">
+                <img src="${imgSrc}"/> 
             </div>
         </div>
+    </div>
     `;
 }

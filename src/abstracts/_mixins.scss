@@ -76,7 +76,7 @@
     visibility: hidden;
 }
 
-@mixin code-vibes-theme {
+@mixin wrapper-grid {
     background-color: #303131;
     height: 100vh;
     max-width: 1440px;
@@ -133,40 +133,8 @@
         margin: 0 auto;
     }
 
-    &__card {
-        width: 120px;
-        height: 120px;
-        cursor: pointer;
+}
 
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.4s;
-            transform-style: preserve-3d;
-        }
-
-        .card-back,
-        .card-front {
-            position: absolute;
-            inset: 0;
-            backface-visibility: hidden;
-            border-radius: 4px;
-        }
-
-        .card-front {
-            transform: rotateY(180deg);
-
-            img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                border-radius: 4px;
-            }
-        }
-
-        &.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-    }
+@mixin flip {
+    
 }
