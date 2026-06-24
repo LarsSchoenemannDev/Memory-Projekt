@@ -1,4 +1,4 @@
-import { } from "./main.scss";
+import "./main.scss";
 import { firstPick, GameSettings, secPick } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
@@ -54,7 +54,7 @@ const theme = {
     gamingFront: ["assets/img/themes/gaming/Front.png"]
 }
 
-console.log(theme);
+
 
 
 const firstPick: firstPick = {
@@ -68,17 +68,17 @@ const secPick: secPick = {
     cardelement: null,
 }
 
-let game = document.getElementById("gameLayout");
+const game = document.getElementById("gameLayout");
 
-init()
+
 
 function init() {
     layoutChange()
     changeImg()
     updateSettingsUI()
     gameLayout()
-
 }
+
 
 function clearform() {
     let x = Object.values(gameSettings)
@@ -151,8 +151,7 @@ function gameLayout(): void {
     if (content) {
         content.innerHTML = "";
         const img = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
-        console.log("slug:", img);
-        let frontImg = img === "code-vibes-theme" ? theme.codeFront : theme.gamingFront
+        let frontImg = img === "code-vibes-theme" ? theme.codeFront[0] : theme.gamingFront[0]
         const images = theme[img as keyof typeof theme] as string[];
         const cards = cardsGenerate(gameSettings.mapSize[0]);
         cards.forEach((cardValue, i) => {
@@ -175,9 +174,12 @@ function datatrnsform(target: HTMLElement) {
     const wrapper = target.closest(".flip") as HTMLElement;
 
     if (!wrapper) return;
-    if (wrapper.classList.contains("flipped")) return;
-    if (wrapper === firstPick.cardid) return;
-
+    if (wrapper.classList.contains("flipped")) {
+        return
+    };
+    if (wrapper === firstPick.cardid) {
+        return
+    };
     if (firstPick.cardid === null) {
         firstPick.cardid = wrapper;
         firstPick.cardindex = wrapper.dataset.cardIndex ?? null;
@@ -208,10 +210,10 @@ function gameEngine() {
     if (result) {
 
         win()
-        console.log("Muster matched! Ein Paar gefunden!");
+        console.log("matched");
     } else {
         lose()
-        console.log("Leider falsch!");
+        console.log("wrong");
     }
 }
 
@@ -250,3 +252,13 @@ function styleReset(): void {
 }
 
 
+document.addEventListener("DOMContentLoaded", function() {
+    init();
+    const formBereich = document.getElementById("meinFormular");
+    if (formBereich) {
+        formBereich.addEventListener("click", function(event) {
+            console.log("Es wurde irgendwo innerhalb des Formulars geklickt!");
+            console.log("Angecklicktes Element:", event.target);
+        });
+    }
+});

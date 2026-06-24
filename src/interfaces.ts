@@ -1,17 +1,17 @@
 export interface GameSettings {
-    theme: string[] | null;
-    player: string[] | null;
-    mapSize: number[] | null;
+    theme: string[];
+    player: string[];
+    mapSize: number[];
 }
 
 export interface firstPick {
-    cardid: number[] | null;
-    cardindex: string[] | null;
-    cardelement: HTMLElement[] | null;
+    cardid: HTMLElement | null;
+    cardindex: string | null;
+    cardelement: HTMLElement | null;
 }
 
 export interface secPick {
-    cardid: number[] | null;
-    cardindex: string[] | null;
-    cardelement: HTMLElement[] | null;
+    cardid: HTMLElement | null;
+    cardindex: string | null;
+    cardelement: HTMLElement | null;
 }

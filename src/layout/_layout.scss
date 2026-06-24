@@ -60,20 +60,10 @@
     @include hidden
 }
 
-.wrapper-grid{
+.wrapper-grid {
     @include wrapper-grid;
 }
 
-
-
-// .first-card {
-//     background-color: red;
-//     z-index: 100;
-//     box-shadow: 5px 10px #e71607;
-// }
-
-// .sec-card {
-//     background-color: rgb(18, 33, 235);
-//     z-index: 100;
-//     box-shadow: 5px 10px #320ae6;
-// }
+.flip {
+    @include flip;
+}
