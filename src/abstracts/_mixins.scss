@@ -68,7 +68,6 @@
         object-fit: cover;
         margin: -4px;
     }
-
 }
 
 @mixin hidden {
@@ -77,11 +76,12 @@
 }
 
 @mixin wrapper-grid {
-    background-color: #303131;    
+    background-color: #303131;
     max-width: 1440px;
+    height: 100vh;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+
     align-items: center;
     flex-direction: column;
 
@@ -91,6 +91,7 @@
         align-items: center;
         width: 100%;
         padding: 16px 64px;
+        margin-bottom: 120px;
     }
 
     &__player-stats {
@@ -123,6 +124,14 @@
         color: $primary-color;
         border: none;
         cursor: pointer;
+    }
+
+    &__girdlayout {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 24px;
+        grid-row-gap: 24px;
     }
 }
 

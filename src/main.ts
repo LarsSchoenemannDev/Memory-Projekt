@@ -70,15 +70,12 @@ const secPick: secPick = {
 
 const game = document.getElementById("gameLayout");
 
-
-
 function init() {
     layoutChange()
-    changeImg()
     updateSettingsUI()
     gameLayout()
+    changeImg()
 }
-
 
 function clearform() {
     let x = Object.values(gameSettings)
@@ -110,10 +107,9 @@ function changeImg(): void {
     } else {
         const img = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
         img.forEach(e => {
-            const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
+            const theme = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-");
             const isMatch = e.src.toLowerCase().includes(theme);
             if (isMatch) {
-
                 e.classList.remove("hidden");
             } else {
                 e.classList.add("hidden");
@@ -259,4 +255,4 @@ document.addEventListener("DOMContentLoaded", function () {
         checkbox.addEventListener('change', init);
     });
 });
-  
+
