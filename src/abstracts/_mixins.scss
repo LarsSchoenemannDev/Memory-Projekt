@@ -77,11 +77,12 @@
 }
 
 @mixin wrapper-grid {
-    background-color: #303131;
-    height: 100vh;
+    background-color: #303131;    
     max-width: 1440px;
     margin: 0 auto;
-    display: $flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
 
     &__header {
@@ -123,16 +124,6 @@
         border: none;
         cursor: pointer;
     }
-
-    &__layout {
-        display: grid;
-        grid-template-rows: repeat(4, 1fr);
-        gap: 8px;
-        grid-template-columns: repeat(4, 1fr);
-        width: fit-content;
-        margin: 0 auto;
-    }
-
 }
 
 @mixin flip {
@@ -153,7 +144,7 @@
     .card-front {
         position: absolute;
         inset: 0;
-        backface-visibility: hidden;        
+        backface-visibility: hidden;
 
         img {
             width: 100%;
