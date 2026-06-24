@@ -252,13 +252,11 @@ function styleReset(): void {
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     init();
-    const formBereich = document.getElementById("meinFormular");
-    if (formBereich) {
-        formBereich.addEventListener("click", function(event) {
-            console.log("Es wurde irgendwo innerhalb des Formulars geklickt!");
-            console.log("Angecklicktes Element:", event.target);
-        });
-    }
+    const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener('change', init);
+    });
 });
+  
