@@ -2,6 +2,9 @@ import "./main.scss";
 import { firstPick, GameSettings, secPick } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
+import { playerSVGOrange } from "./innerHTML"
+import { playerSVGBlue } from "./innerHTML"
+
 
 const gameSettings: GameSettings = {
     theme: [],
@@ -54,7 +57,7 @@ const theme = {
     gamingFront: ["assets/img/themes/gaming/Front.png"]
 }
 
-
+console.log(gameSettings);
 
 
 const firstPick: firstPick = {
@@ -68,13 +71,20 @@ const secPick: secPick = {
     cardelement: null,
 }
 
+let player1Moves = 0;
+let player2Moves = 0;
+let activePlayer = 1;
+
 const game = document.getElementById("gameLayout");
 
 function init() {
-    layoutChange()
-    updateSettingsUI()
-    gameLayout()
-    changeImg()
+    layoutChange();
+    updateSettingsUI();
+    gameLayout();
+    resizeplayermap();
+    changeImg();
+    updateActivePlayerUI();
+    updatePlayerStats();
 }
 
 function clearform() {
@@ -92,6 +102,7 @@ function layoutChange(): void {
                 gameSettings.theme.push(data.theme);
             }
             if (data.playerselect) {
+                console.log(data.playerselect)
                 gameSettings.player.push(data.playerselect);
             }
             if (data.size) {
@@ -106,8 +117,9 @@ function changeImg(): void {
         return
     } else {
         const img = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
+        if (!gameSettings.theme[0]) return
         img.forEach(e => {
-            const theme = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-");
+            const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
             const isMatch = e.src.toLowerCase().includes(theme);
             if (isMatch) {
                 e.classList.remove("hidden");
@@ -117,6 +129,7 @@ function changeImg(): void {
         });
     }
 }
+
 
 function cardsGenerate(mapSize: number) {
     const pairs = mapSize / 2;
@@ -146,6 +159,7 @@ function gameLayout(): void {
     const content = document.getElementById("gameLayout");
     if (content) {
         content.innerHTML = "";
+        if (!gameSettings.theme[0]) return
         const img = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
         let frontImg = img === "code-vibes-theme" ? theme.codeFront[0] : theme.gamingFront[0]
         const images = theme[img as keyof typeof theme] as string[];
@@ -228,19 +242,18 @@ function resetRound(): void {
     secPick.cardelement = null;
 }
 
-function win(): void {
-    setTimeout(() => {
-        resetRound();
-    }, 20);
-}
+// function win(): void {
+//     setTimeout(() => {
+//         resetRound();
+//     }, 20);
+// }
 
-function lose(): void {
-    setTimeout(() => {
-        styleReset()
-        resetRound()
-    }, 800);
-
-}
+// function lose(): void {
+//     setTimeout(() => {
+//         styleReset()
+//         resetRound()
+//     }, 800);
+// }
 
 function styleReset(): void {
     firstPick.cardelement?.closest(".flip")?.classList.remove("flipped");
@@ -252,7 +265,87 @@ document.addEventListener("DOMContentLoaded", function () {
     init();
     const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
     checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener('change', init);
+        checkbox.addEventListener("change", init,);
     });
 });
 
+console.log(gameSettings.mapSize);
+
+
+function resizeplayermap() {
+    let x = document.getElementById("gameLayout")
+    if (!x) return;
+    const mapSize = gameSettings.mapSize[0];
+    if (mapSize === undefined || mapSize === null) {
+        return;
+    }
+    if (mapSize === 16) {
+        x.style.gridTemplateColumns = "repeat(4,1fr)";
+    }
+    if (mapSize === 24) {
+        x.style.gridTemplateColumns = "repeat(6,1fr)";
+    }
+    if (mapSize === 36) {
+        x.style.gridTemplateColumns = "repeat(6,1fr)";
+    }
+}
+
+function switchPlayer(): void {
+    activePlayer = activePlayer === 1 ? 2 : 1;
+    updateActivePlayerUI();
+}
+
+
+
+function updateActivePlayerUI(): void {
+    const playerSVG = document.getElementById("playerSVG");
+    if (!playerSVG) return;
+    const { p1, p2 } = getPlayerColors();
+    const currentColor = activePlayer === 1 ? p1 : p2;
+    if (currentColor === "orange") {
+        playerSVG.innerHTML = playerSVGOrange();
+    } else {
+        playerSVG.innerHTML = playerSVGBlue();
+    }
+}
+
+function getPlayerColors(): { p1: string, p2: string } {
+    const chosen = gameSettings.player[0];
+    return {
+        p1: chosen,
+        p2: chosen === "orange" ? "blue" : "orange"
+    };
+}
+
+function updatePlayerStats(): void {
+    const blue = document.getElementById("playerBlue");
+    const orange = document.getElementById("playerOrange");
+    const { p1, p2 } = getPlayerColors();
+    if (p1 === "blue") {
+        if (blue) blue.textContent = String(player1Moves);
+        if (orange) orange.textContent = String(player2Moves);
+    } else {
+        if (orange) orange.textContent = String(player1Moves);
+        if (blue) blue.textContent = String(player2Moves);
+    }
+}
+
+function win(): void {
+    if (activePlayer === 1) {
+        player1Moves++
+    }
+    else player2Moves++;
+    updatePlayerStats();
+    setTimeout(() => resetRound(), 20);
+}
+
+function lose(): void {
+    if (activePlayer === 1) player1Moves++;
+    else player2Moves++;
+    updatePlayerStats();
+    setTimeout(() => {
+        styleReset();
+        resetRound();
+        switchPlayer();
+    }, 800);
+}
