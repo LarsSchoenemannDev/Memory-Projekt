@@ -4,7 +4,15 @@ import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
 import { playerSVGOrange } from "./innerHTML"
 import { playerSVGBlue } from "./innerHTML"
+import { gameOverInnerHTML } from "./innerHTML"
+import { resultInnerHTML } from "./innerHTML"
 
+
+let player1Moves = 0;
+let player2Moves = 0;
+let activePlayer = 1;
+let matchedPairs = 0;
+let totalPairs = 0;
 
 const gameSettings: GameSettings = {
     theme: [],
@@ -117,6 +125,7 @@ function changeImg(): void {
         return
     } else {
         const img = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
+        const exitWrapper = document.getElementById("exit-action")
         if (!gameSettings.theme[0]) return
         img.forEach(e => {
             const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
@@ -348,4 +357,46 @@ function lose(): void {
         resetRound();
         switchPlayer();
     }, 800);
+}
+
+function resetScores(): void {
+    player1Moves = 0;
+    player2Moves = 0;
+    activePlayer = 1;
+    matchedPairs = 0;
+    totalPairs = gameSettings.mapSize[0] / 2;
+    resetRound();
+}
+
+function checkGameOver(): void {
+    if (totalPairs > 0 && matchedPairs >= totalPairs) {
+        showGameOver();
+    }
+}
+
+function getScores(): { blue: number, orange: number } {
+    const { p1 } = getPlayerColors();
+    if (p1 === "blue") {
+        return { blue: player1Moves, orange: player2Moves };
+    }
+    return { blue: player2Moves, orange: player1Moves };
+}
+
+function showGameOver(): void {
+    const content = document.getElementById("gameOverContent");
+    const screen = document.getElementById("gameOverScreen");
+    if (!content || !screen) return;
+    const isGaming = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-") === "gaming-theme";
+    screen.classList.toggle("game-over--gaming", isGaming);
+    const { blue, orange } = getScores();
+    content.innerHTML = gameOverInnerHTML(blue, orange, isGaming);
+    showScreen("gameover");
+    setTimeout(() => showResult(blue, orange, isGaming), 2500);
+}
+
+function showResult(blue: number, orange: number, isGaming: boolean): void {
+    const content = document.getElementById("gameOverContent");
+    if (!content) return;
+    const winner = (blue > orange ? "blue" : orange > blue ? "orange" : "draw") as "blue" | "orange" | "draw";
+    content.innerHTML = resultInnerHTML(winner, isGaming);
 }
