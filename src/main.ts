@@ -272,6 +272,7 @@ function styleReset(): void {
 
 document.addEventListener("DOMContentLoaded", function () {
     init();
+    showScreen("start");
     const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", init,);
