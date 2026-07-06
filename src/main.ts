@@ -345,14 +345,14 @@ function win(): void {
         player1Moves++
     }
     else player2Moves++;
-    updatePlayerStats();
-    setTimeout(() => resetRound(), 20);
+    matchedPairs++;
+    setTimeout(() => {
+        resetRound();
+        checkGameOver();
+    }, 20);
 }
 
 function lose(): void {
-    if (activePlayer === 1) player1Moves++;
-    else player2Moves++;
-    updatePlayerStats();
     setTimeout(() => {
         styleReset();
         resetRound();
