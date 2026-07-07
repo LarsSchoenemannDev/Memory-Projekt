@@ -1,15 +1,15 @@
 @use "../abstracts/mixins" as *;
 @use "../abstracts/variables" as var;
 .wrapper-grid--gaming {
-    background-color: #1e3a4a;
+    background-color: var.$gaming-bg;
 
     .wrapper-grid__player-stats {
-        background-color: #152e3c;
-        border-color: #e91e63;
+        background-color: var.$gaming-surface;
+        border-color: var.$pink-border;
     }
 
     .wrapper-grid__exit-btn {
-        border-color: #ED1B76;
+        border-color: var.$accent-pink;
     }
 
     .flip img {
@@ -25,17 +25,17 @@
     }
 
     .popup__actions #returnBack {
-        background-color: #ED1B76;
+        background-color: var.$accent-pink;
     }
 
     .popup__actions #exitGame {
-        background-color: #fbe7ef;
-        color: #ED1B76;
-        border-color: #ED1B76;
+        background-color: var.$pink-soft;
+        color: var.$accent-pink;
+        border-color: var.$accent-pink;
     }
 }
 .game-over--gaming {
-    background-color: #1e3a4a;
+    background-color: var.$gaming-bg;
 
     .game-over__score {
         background-color: var.$primary-color;
@@ -43,6 +43,6 @@
 
     .game-over__home-btn {
         background-color: transparent;
-        border: 2px solid #ED1B76;
+        border: 2px solid var.$accent-pink;
     }
 }

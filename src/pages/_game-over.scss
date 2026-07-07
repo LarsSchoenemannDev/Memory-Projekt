@@ -9,7 +9,7 @@
     background-color: var.$primary-color-dark;
     color: var.$primary-color;
     text-align: center;
-    position: relative; // fuer das Konfetti-Band
+    position: relative;
     overflow: hidden;
 
     &__content {
@@ -45,7 +45,7 @@
     &__score {
         display: inline-flex;
         gap: 22px;
-        background-color: #415652;
+        background-color: var.$surface-dark;
         padding: 10px 20px;
         border-radius: 6px;
         font-weight: var.$font-weight7;
@@ -57,11 +57,11 @@
         gap: 8px;
 
         &--blue {
-            color: #2BB1FF;
+            color: var.$player-blue;
         }
 
         &--orange {
-            color: #F58E39;
+            color: var.$player-orange;
         }
     }
 
@@ -80,11 +80,11 @@
         font-size: 52px;
 
         &--blue {
-            color: #2BB1FF;
+            color: var.$player-blue;
         }
 
         &--orange {
-            color: #F58E39;
+            color: var.$player-orange;
         }
     }
 
@@ -97,9 +97,9 @@
     &__home-btn {
         margin-top: 24px;
         padding: 10px 26px;
-        background-color: #415652;
+        background-color: var.$surface-dark;
         color: var.$primary-color;
-        border: 2px solid #4DD5BC;
+        border: 2px solid var.$border-teal;
         border-radius: 6px;
         font-size: var.$font-20;
         font-weight: var.$font-weight7;

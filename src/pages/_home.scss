@@ -8,7 +8,7 @@
     height: 100vh;
     text-align: left;
     color: var.$primary-color;
-    background-color: #303131;
+    background-color: var.$primary-color-dark;
     position: relative;
 
     &__title {

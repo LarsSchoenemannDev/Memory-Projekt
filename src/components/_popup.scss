@@ -41,15 +41,15 @@
         }
 
         #returnBack {
-            background-color: #66CFBC;
+            background-color: var.$accent-teal;
             color: var.$primary-color;
             border: none;
         }
 
         #exitGame {
-            background-color: rgba(#66CFBC, 0.08);
-            color: #66CFBC;
-            border: 2px solid #66CFBC;
+            background-color: rgba(var.$accent-teal, 0.08);
+            color: var.$accent-teal;
+            border: 2px solid var.$accent-teal;
         }
     }
 }

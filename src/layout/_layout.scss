@@ -69,9 +69,9 @@
         align-items: center;
         gap: 8px;
         padding: 12px 20px;
-        background-color: #415652;
+        background-color: var.$surface-dark;
         color: var.$primary-color;
-        border: 2px solid #4DD5BC;
+        border: 2px solid var.$border-teal;
         border-radius: 6px;
         font-size: var.$font-16;
         font-weight: var.$font-weight7;
