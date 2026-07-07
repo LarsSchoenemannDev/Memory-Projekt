@@ -1,25 +1,19 @@
-// 1 Abstracts Hilfsmittel
 @use "abstracts/mixins" as *;
 @use "abstracts/variables" as var;
 
-// 2 Base grundlegende styles & globale Resets
 @use "base/base";
 @use "base/fonts";
 
-// 3 Layout
 @use "layout/layout";
 @use "layout/navigation";
 
-// 4 Components
 @use "components/buttons";
 @use "components/card";
 @use "components/settings-menu";
 @use "components/popup"; 
 
-// 5 Pages
 @use "pages/home";
 @use "pages/game-over"; 
 
-// 6 Themes
 @use "themes/theme";
 
