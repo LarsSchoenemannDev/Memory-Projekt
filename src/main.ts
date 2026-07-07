@@ -1,11 +1,13 @@
 import "./main.scss";
-import type { firstPick, GameSettings, secPick } from "./interfaces";
+import type { firstPick, GameSettings, secPick, ThemeAssets, Scores, PlayerColors } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
 import { playerSVGOrange } from "./innerHTML"
 import { playerSVGBlue } from "./innerHTML"
 import { gameOverInnerHTML } from "./innerHTML"
-import { resultInnerHTML } from "./innerHTML"
+import { winnerInnerHTML } from "./innerHTML"
+import { drawInnerHTML } from "./innerHTML"
+import { confettiInnerHTML } from "./innerHTML"
 
 let player1Moves = 0;
 let player2Moves = 0;
@@ -13,13 +15,18 @@ let activePlayer = 1;
 let matchedPairs = 0;
 let totalPairs = 0;
 
+const PLAYER_COLOR: Record<"blue" | "orange", string> = {
+    blue: "#2BB1FF",
+    orange: "#F58E39",
+};
+
 const gameSettings: GameSettings = {
     theme: [],
     player: [],
     mapSize: []
 };
 
-const theme = {
+const theme: ThemeAssets = {
     "code-vibes-theme": [
         "assets/img/themes/code/Property 1=Component 22-1.png",
         "assets/img/themes/code/Property 1=Component 22-2.png",
@@ -110,7 +117,6 @@ function applyBoardTheme(): void {
     if (quit) quit.textContent = isGaming ? "Yes, quit game" : "Exit game";
 }
 
-// NEU: Zentrale Screen-Steuerung. Blendet alle Screens aus und zeigt nur den gewuenschten.
 function showScreen(name: "start" | "settings" | "game" | "gameover"): void {
     const screens: Record<string, string> = {
         start: "startScreen",
@@ -194,7 +200,6 @@ function changeImg(): void {
     }
 }
 
-
 function cardsGenerate(mapSize: number) {
     const pairs = mapSize / 2;
     const cards = [];
@@ -214,8 +219,8 @@ function updateSettingsUI(): void {
     anchors.forEach((anchor) => {
         if (anchor) {
             anchor.innerHTML = "";
-            // GEAENDERT: isReady() als 4. Argument -> Start-Button ist nur bei vollstaendiger Auswahl aktiv.
-            anchor.innerHTML += gameStatsInnerHTML(gameSettings.theme, gameSettings.player, gameSettings.mapSize, isReady());
+            const disabled = isReady() ? "" : "disabled";
+            anchor.innerHTML += gameStatsInnerHTML(gameSettings.theme, gameSettings.player, gameSettings.mapSize, disabled);
         }
     });
 }
@@ -306,7 +311,6 @@ function styleReset(): void {
     secPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
 }
 
-
 document.addEventListener("DOMContentLoaded", function () {
     init();
     showScreen("start");
@@ -351,7 +355,7 @@ function updateActivePlayerUI(): void {
     }
 }
 
-function getPlayerColors(): { p1: string, p2: string } {
+function getPlayerColors(): PlayerColors {
     const chosen = gameSettings.player[0];
     return {
         p1: chosen,
@@ -378,7 +382,7 @@ function win(): void {
     }
     else player2Moves++;
     matchedPairs++;
-    updatePlayerStats(); 
+    updatePlayerStats();
     setTimeout(() => {
         resetRound();
         checkGameOver();
@@ -408,7 +412,7 @@ function checkGameOver(): void {
     }
 }
 
-function getScores(): { blue: number, orange: number } {
+function getScores(): Scores {
     const { p1 } = getPlayerColors();
     if (p1 === "blue") {
         return { blue: player1Moves, orange: player2Moves };
@@ -423,7 +427,8 @@ function showGameOver(): void {
     const isGaming = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-") === "gaming-theme";
     screen.classList.toggle("game-over--gaming", isGaming);
     const { blue, orange } = getScores();
-    content.innerHTML = gameOverInnerHTML(blue, orange, isGaming);
+    const titleSrc = isGaming ? "assets/img/game-over-gaming.png" : "assets/img/game-over-code.png";
+    content.innerHTML = gameOverInnerHTML(blue, orange, titleSrc, PLAYER_COLOR.blue, PLAYER_COLOR.orange);
     showScreen("gameover");
     setTimeout(() => showResult(blue, orange, isGaming), 2500);
 }
@@ -432,5 +437,47 @@ function showResult(blue: number, orange: number, isGaming: boolean): void {
     const content = document.getElementById("gameOverContent");
     if (!content) return;
     const winner = (blue > orange ? "blue" : orange > blue ? "orange" : "draw") as "blue" | "orange" | "draw";
-    content.innerHTML = resultInnerHTML(winner, isGaming);
+    const btnLabel = isGaming ? "Home" : "Back to start";
+
+    if (winner === "draw") {
+        const titleSrc = isGaming ? "assets/img/draw-gamin.png" : "assets/img/draw-code.png";
+        const iconSrc = isGaming ? "assets/img/drawGaming.svg" : "assets/img/drawCode.svg";
+        content.innerHTML = drawInnerHTML(titleSrc, iconSrc, btnLabel);
+        return;
+    }
+
+    const name = winner === "orange" ? "Orange Player" : "Blue Player";
+    const displayName = isGaming ? name : name.toUpperCase();
+    const iconSrc = isGaming ? "assets/img/pockal.png" : `assets/img/${winner}.svg`;
+    const confetti = isGaming ? "" : confettiInnerHTML();
+    content.innerHTML = winnerInnerHTML(displayName, `game-over__winner-name--${winner}`, iconSrc, confetti, btnLabel);
 }
+
+function sleep(ms: number): Promise<void> {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function autoPlay(): Promise<void> {
+    const cards = Array.from(document.querySelectorAll<HTMLElement>("#gameLayout .flip"));
+    const pairs: Record<string, HTMLElement[]> = {};
+    cards.forEach(card => {
+        const value = card.dataset.card;
+        if (!value) return;
+        (pairs[value] ??= []).push(card);
+    });
+    for (const value of Object.keys(pairs)) {
+        const [first, second] = pairs[value];
+        if (!first || !second) continue;
+        datatrnsform(first);
+        await sleep(400);
+        datatrnsform(second);
+        await sleep(900);
+    }
+}
+
+document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.key.toLowerCase() === "p") {
+        e.preventDefault();
+        autoPlay();
+    }
+});
