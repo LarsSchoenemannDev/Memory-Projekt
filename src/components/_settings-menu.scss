@@ -37,22 +37,22 @@
         opacity: 0;
 
         &:checked {
-            & ~ .default {
+            &~.default {
                 display: none;
             }
 
-            & ~ .active {
+            &~.active {
                 display: block;
             }
 
-            & ~ .settings-menu__text {
+            &~.settings-menu__text {
                 @include checked-text;
             }
         }
     }
-}
 
-.wrapper-Settings {
-    margin: 36px 0;
-    max-width: 400px;
+    &__group {
+        margin: 36px 0;
+        max-width: 400px;
+    }
 }

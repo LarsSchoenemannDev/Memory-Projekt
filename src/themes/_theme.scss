@@ -1,295 +1,48 @@
 @use "../abstracts/mixins" as *;
 @use "../abstracts/variables" as var;
-
-
-@mixin code-vibes-theme {
-    background-color: #303131;
-    height: 100vh;
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    color: white;
-
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 64px;
-        background-color: #415652;
-    }
-
-    &__player-stats {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        height: 65px;
-        padding: 0 20px;
-        font-size: 18px;
-    }
-
-    &__current-player {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__exit-btn {
-        display: flex;
-        align-items: center;
-        height: 65px;
-        background-color: #415652;
-        color: #4DD5BC;
-        border: none;
-        padding: 0 30px;
-        gap: 8px;
-        font-size: 18px;
-        font-weight: 700;
-        cursor: pointer;
-
-        &:hover {
-            background-color: #4DD5BC;
-            color: #303131;
-        }
-
-        &__exit {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 200;
-            background-color: rgba(0, 0, 0, 0.4);
-
-            span {
-                position: absolute;
-                background-color: #fff;
-                padding: 90px 60px;
-                text-align: center;
-                font-size: 24px;
-                font-weight: 700;
-                color: #303131;
-                max-width: 420px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            }
-        }
-
-        &__exit-actions {
-
-            position: relative;
-            z-index: 1;
-            display: flex;
-            gap: 16px;
-            padding-top: 144px;
-
-            button {
-                width: 160px;
-                height: 45px;
-                border-radius: 6px;
-                font-size: 16px;
-                font-weight: 700;
-                cursor: pointer;
-                transition: all 0.2s ease;
-            }
-
-            #returnBack {
-                background-color: #66CFBC;
-                color: #fff;
-                border: none;
-                background-color: darken(#66CFBC, 5%);
-
-                &:hover {}
-            }
-
-            #exitGame {
-                background-color: transparent;
-                color: #66CFBC;
-                border: 2px solid #66CFBC;
-                background-color: rgba(#66CFBC, 0.08);
-
-                &:hover {}
-            }
-        }
-    }
-
-    &__layout {
-        display: grid;
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(4, 80px);
-        gap: 8px;
-        width: fit-content;
-        margin: auto;
-    }
-}
-
-@mixin gaming-theme {
+.wrapper-grid--gaming {
     background-color: #1e3a4a;
-    height: 100vh;
-    max-width: 1440px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    color: white;
 
-    &__header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 16px 32px;
+    .wrapper-grid__player-stats {
         background-color: #152e3c;
+        border-color: #e91e63;
     }
 
-    &__player-stats {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        height: 55px;
-        border: 2px solid #e91e63;
-        border-radius: 8px;
-        padding: 0 16px;
-        font-size: 18px;
-    }
-
-    &__current-player {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    &__exit-btn {
-        display: flex;
-        align-items: center;
-        height: 55px;
-        background-color: transparent;
-        color: white;
-        border: 2px solid white;
-        border-radius: 4px;
-        padding: 0 24px;
-        gap: 8px;
-        font-size: 16px;
-        cursor: pointer;
-
-        &:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
-    }
-
-    &__exit {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.4);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 200;
-    }
-
-    &__exit-card {
-        background-color: #eef2f6;
-        border-radius: 20px;
-        padding: 40px 60px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 28px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-
-        span {
-            font-size: 26px;
-            font-weight: 800;
-            color: #2c4a5e;
-            text-align: center;
-            line-height: 1.3;
-        }
-    }
-
-    &__exit-actions {
-        display: flex;
-        gap: 16px;
-
-        button {
-            min-width: 180px;
-            height: 48px;
-            border-radius: 30px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        #returnBack {
-            background-color: #ED1B76;
-            color: #fff;
-            border: none;
-
-            &:hover {
-                background-color: darken(#ED1B76, 5%);
-            }
-        }
-
-        #exitGame {
-            background-color: #fbe7ef;
-            color: #ED1B76;
-            border: 2px solid #ED1B76;
-
-            &:hover {
-                background-color: darken(#ED1B7614, 8%);
-            }
-        }
-    }
-
-    &__layout {
-        display: grid;
-        grid-template-columns: repeat(4, 80px);
-        grid-template-rows: repeat(4, 90px);
-        gap: 10px;
-        width: fit-content;
-        margin: auto;
+    .wrapper-grid__exit-btn {
+        border-color: #ED1B76;
     }
 
     .flip img {
         border-radius: 14px;
     }
+
+    .popup__card {
+        border-radius: 20px;
+    }
+
+    .popup__actions button {
+        border-radius: 30px;
+    }
+
+    .popup__actions #returnBack {
+        background-color: #ED1B76;
+    }
+
+    .popup__actions #exitGame {
+        background-color: #fbe7ef;
+        color: #ED1B76;
+        border-color: #ED1B76;
+    }
 }
+.game-over--gaming {
+    background-color: #1e3a4a;
 
-.flip {
-    width: 120px;
-    height: 120px;
-    perspective: 1000px;
-    cursor: pointer;
-
-    .card-inner {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        transition: transform 0.4s;
-        transform-style: preserve-3d;
+    .game-over__score {
+        background-color: var.$primary-color;
     }
 
-    .card-back,
-    .card-front {
-        position: absolute;
-        inset: 0;
-        backface-visibility: hidden;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    .card-front {
-        transform: rotateY(180deg);
-    }
-
-    &.flipped .card-inner {
-        transform: rotateY(180deg);
+    .game-over__home-btn {
+        background-color: transparent;
+        border: 2px solid #ED1B76;
     }
 }

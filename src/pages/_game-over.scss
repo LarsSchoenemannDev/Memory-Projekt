@@ -1,0 +1,108 @@
+@use "../abstracts/mixins" as *;
+@use "../abstracts/variables" as var;
+
+.game-over {
+    @include flex-direction-c;
+    justify-content: center;
+    gap: 6px;
+    height: 100vh;
+    background-color: var.$primary-color-dark;
+    color: var.$primary-color;
+    text-align: center;
+    position: relative; // fuer das Konfetti-Band
+    overflow: hidden;
+
+    &__content {
+        @include flex-direction-c;
+        gap: 6px;
+        width: 100%;
+    }
+
+    &__confetti {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    &__title-img {
+        height: 110px;
+        width: auto;
+        max-width: 90%;
+
+        &--draw {
+            height: 90px;
+        }
+    }
+
+    &__label {
+        @include norm-text;
+        margin-top: 20px;
+    }
+
+    &__score {
+        display: inline-flex;
+        gap: 22px;
+        background-color: #415652;
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-weight: var.$font-weight7;
+    }
+
+    &__score-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        &--blue {
+            color: #2BB1FF;
+        }
+
+        &--orange {
+            color: #F58E39;
+        }
+    }
+
+    &__winner {
+        font-family: "Red Rose";
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 100%;
+        letter-spacing: 0;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    &__winner-name {
+        @include rdy-h1;
+        font-size: 52px;
+
+        &--blue {
+            color: #2BB1FF;
+        }
+
+        &--orange {
+            color: #F58E39;
+        }
+    }
+
+    &__icon {
+        height: 150px;
+        width: auto;
+        margin: 16px 0;
+    }
+
+    &__home-btn {
+        margin-top: 24px;
+        padding: 10px 26px;
+        background-color: #415652;
+        color: var.$primary-color;
+        border: 2px solid #4DD5BC;
+        border-radius: 6px;
+        font-size: var.$font-20;
+        font-weight: var.$font-weight7;
+        cursor: pointer;
+    }
+}

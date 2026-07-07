@@ -51,7 +51,7 @@
         </div>
         <section class="wrapper">
             <section class="wrapper__left">
-                <div class="wrapper-Settings">
+                <div class="settings-menu__group">
                     <div class="settings-menu__row">
                         <svg class="settings-menu__row-icon" width="32" height="32" viewBox="0 0 32 32" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +168,7 @@
                         </label> -->
                     </form>
                 </div>
-                <div class="wrapper-Settings">
+                <div class="settings-menu__group">
                     <div class="settings-menu__row">
                         <svg width="32" height="32" viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -227,7 +227,7 @@
                         </label>
                     </form>
                 </div>
-                <div class="wrapper-Settings">
+                <div class="settings-menu__group">
                     <div class="settings-menu__row">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_2290_4600" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
@@ -356,13 +356,13 @@
             </button>
 
         </div>
-        <!-- Map -->
-        <div class="wrapper-grid__girdlayout" id="gameLayout">
-        </div>       
-        <div class="wrapper-grid__exit is-hidden" id="exit-action">
-            <div class="wrapper-grid__exit-card">
+        <!-- Map -->        
+        <div class="wrapper-grid__layout" id="gameLayout">
+        </div>              
+        <div class="popup is-hidden" id="exit-action">
+            <div class="popup__card">
                 <span>Are you sure you want to quit the game?</span>
-                <div class="wrapper-grid__exit-actions">                   
+                <div class="popup__actions">
                     <button id="returnBack" onclick="closeExitPopup()">Back to game</button>
                     <button id="exitGame" onclick="quitToHome()">Exit game</button>
                 </div>

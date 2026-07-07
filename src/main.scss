@@ -16,9 +16,11 @@
 @use "components/buttons";
 @use "components/card";
 @use "components/settings-menu";
+@use "components/popup"; 
 
-// 5 Pages 
+// 5 Pages
 @use "pages/home";
+@use "pages/game-over"; 
 
 // 6 Themes
 @use "themes/theme";

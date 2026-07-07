@@ -23,11 +23,9 @@
 
     &:hover {
         width: 300px;
-
         .play-btn__icon--controller {
             transform: rotate(45deg);
         }
-
         .play-btn__icon--arrow {
             width: 60px;
             height: 40px;
