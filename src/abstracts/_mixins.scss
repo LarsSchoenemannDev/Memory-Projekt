@@ -69,6 +69,7 @@
 @mixin hidden {
     opacity: 0;
     visibility: hidden;
+    display: none;
 }
 
 @mixin wrapper-grid {

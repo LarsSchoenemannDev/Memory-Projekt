@@ -1,12 +1,11 @@
 import "./main.scss";
-import { firstPick, GameSettings, secPick } from "./interfaces";
+import type { firstPick, GameSettings, secPick } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
 import { playerSVGOrange } from "./innerHTML"
 import { playerSVGBlue } from "./innerHTML"
 import { gameOverInnerHTML } from "./innerHTML"
 import { resultInnerHTML } from "./innerHTML"
-
 
 let player1Moves = 0;
 let player2Moves = 0;
@@ -65,9 +64,6 @@ const theme = {
     gamingFront: ["assets/img/themes/gaming/Front.png"]
 }
 
-console.log(gameSettings);
-
-
 const firstPick: firstPick = {
     cardid: null,
     cardindex: null,
@@ -79,21 +75,82 @@ const secPick: secPick = {
     cardelement: null,
 }
 
-let player1Moves = 0;
-let player2Moves = 0;
-let activePlayer = 1;
-
 const game = document.getElementById("gameLayout");
 
 function init() {
     layoutChange();
     updateSettingsUI();
+    changeImg();
+}
+
+function isReady(): boolean {
+    return gameSettings.theme.length > 0 && gameSettings.player.length > 0 && gameSettings.mapSize.length > 0;
+}
+
+function startGame(): void {
+    if (!isReady()) return;
+    resetScores();
     gameLayout();
     resizeplayermap();
-    changeImg();
+    applyBoardTheme();
     updateActivePlayerUI();
     updatePlayerStats();
+    showScreen("game");
 }
+
+function applyBoardTheme(): void {
+    const grid = document.getElementById("gamingWrapper");
+    if (!grid) return;
+    const theme = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-");
+    const isGaming = theme === "gaming-theme";
+    grid.classList.toggle("wrapper-grid--gaming", isGaming);
+    const back = document.getElementById("returnBack");
+    const quit = document.getElementById("exitGame");
+    if (back) back.textContent = isGaming ? "No, back to game" : "Back to game";
+    if (quit) quit.textContent = isGaming ? "Yes, quit game" : "Exit game";
+}
+
+// NEU: Zentrale Screen-Steuerung. Blendet alle Screens aus und zeigt nur den gewuenschten.
+function showScreen(name: "start" | "settings" | "game" | "gameover"): void {
+    const screens: Record<string, string> = {
+        start: "startScreen",
+        settings: "setting",
+        game: "gamingWrapper",
+        gameover: "gameOverScreen",
+    };
+    Object.values(screens).forEach(id => {
+        document.getElementById(id)?.classList.add("hidden");
+    });
+    document.getElementById(screens[name])?.classList.remove("hidden");
+}
+
+function goToSettings(): void {
+    showScreen("settings");
+}
+
+function openExitPopup(): void {
+    document.getElementById("exit-action")?.classList.remove("hidden");
+}
+
+function closeExitPopup(): void {
+    document.getElementById("exit-action")?.classList.add("hidden");
+}
+
+function quitToHome(): void {
+    closeExitPopup();
+    showScreen("start");
+}
+
+function goHome(): void {
+    showScreen("start");
+}
+
+(window as any).goToSettings = goToSettings;
+(window as any).openExitPopup = openExitPopup;
+(window as any).closeExitPopup = closeExitPopup;
+(window as any).quitToHome = quitToHome;
+(window as any).goHome = goHome;
+(window as any).startGame = startGame;
 
 function clearform() {
     let x = Object.values(gameSettings)
@@ -110,7 +167,6 @@ function layoutChange(): void {
                 gameSettings.theme.push(data.theme);
             }
             if (data.playerselect) {
-                console.log(data.playerselect)
                 gameSettings.player.push(data.playerselect);
             }
             if (data.size) {
@@ -125,7 +181,6 @@ function changeImg(): void {
         return
     } else {
         const img = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
-        const exitWrapper = document.getElementById("exit-action")
         if (!gameSettings.theme[0]) return
         img.forEach(e => {
             const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
@@ -159,7 +214,8 @@ function updateSettingsUI(): void {
     anchors.forEach((anchor) => {
         if (anchor) {
             anchor.innerHTML = "";
-            anchor.innerHTML += gameStatsInnerHTML(gameSettings.theme, gameSettings.player, gameSettings.mapSize);
+            // GEAENDERT: isReady() als 4. Argument -> Start-Button ist nur bei vollstaendiger Auswahl aktiv.
+            anchor.innerHTML += gameStatsInnerHTML(gameSettings.theme, gameSettings.player, gameSettings.mapSize, isReady());
         }
     });
 }
@@ -179,7 +235,6 @@ function gameLayout(): void {
     }
 }
 
-
 if (game) {
     game.addEventListener("click", (event) => {
         const target = event.target as HTMLElement;
@@ -193,7 +248,7 @@ function datatrnsform(target: HTMLElement) {
     const wrapper = target.closest(".flip") as HTMLElement;
 
     if (!wrapper) return;
-    if (wrapper.classList.contains("flipped")) {
+    if (wrapper.classList.contains("flip--flipped")) {
         return
     };
     if (wrapper === firstPick.cardid) {
@@ -203,13 +258,11 @@ function datatrnsform(target: HTMLElement) {
         firstPick.cardid = wrapper;
         firstPick.cardindex = wrapper.dataset.cardIndex ?? null;
         firstPick.cardelement = target;
-        console.log(firstPick);
         stylePick(target);
     } else if (secPick.cardid === null) {
         secPick.cardid = wrapper;
         secPick.cardindex = wrapper.dataset.cardIndex ?? null;
         secPick.cardelement = target;
-        console.log(secPick);
         stylePick(target);
         gameEngine();
     }
@@ -218,7 +271,7 @@ function datatrnsform(target: HTMLElement) {
 function stylePick(target: HTMLElement): void {
     const layout = target.closest(".flip");
     if (!layout) return;
-    layout.classList.add("flipped");
+    layout.classList.add("flip--flipped");
 }
 
 function gameEngine() {
@@ -227,12 +280,9 @@ function gameEngine() {
     }
     const result = matched();
     if (result) {
-
         win()
-        console.log("matched");
     } else {
         lose()
-        console.log("wrong");
     }
 }
 
@@ -251,22 +301,9 @@ function resetRound(): void {
     secPick.cardelement = null;
 }
 
-// function win(): void {
-//     setTimeout(() => {
-//         resetRound();
-//     }, 20);
-// }
-
-// function lose(): void {
-//     setTimeout(() => {
-//         styleReset()
-//         resetRound()
-//     }, 800);
-// }
-
 function styleReset(): void {
-    firstPick.cardelement?.closest(".flip")?.classList.remove("flipped");
-    secPick.cardelement?.closest(".flip")?.classList.remove("flipped");
+    firstPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
+    secPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
 }
 
 
@@ -278,9 +315,6 @@ document.addEventListener("DOMContentLoaded", function () {
         checkbox.addEventListener("change", init,);
     });
 });
-
-console.log(gameSettings.mapSize);
-
 
 function resizeplayermap() {
     let x = document.getElementById("gameLayout")
@@ -304,8 +338,6 @@ function switchPlayer(): void {
     activePlayer = activePlayer === 1 ? 2 : 1;
     updateActivePlayerUI();
 }
-
-
 
 function updateActivePlayerUI(): void {
     const playerSVG = document.getElementById("playerSVG");
@@ -346,6 +378,7 @@ function win(): void {
     }
     else player2Moves++;
     matchedPairs++;
+    updatePlayerStats(); 
     setTimeout(() => {
         resetRound();
         checkGameOver();
