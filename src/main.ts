@@ -1,4 +1,4 @@
-
+import "./main.scss";
 import type { firstPick, GameSettings, secPick, ThemeAssets, Scores, PlayerColors } from "./interfaces";
 import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
@@ -469,9 +469,9 @@ async function autoPlay(): Promise<void> {
         const [first, second] = pairs[value];
         if (!first || !second) continue;
         datatrnsform(first);
-        await sleep(400);
+        await sleep(10);
         datatrnsform(second);
-        await sleep(900);
+        await sleep(30);
     }
 }
 

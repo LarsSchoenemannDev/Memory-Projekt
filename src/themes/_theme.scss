@@ -1,11 +1,12 @@
 @use "../abstracts/mixins" as *;
 @use "../abstracts/variables" as var;
+
 .wrapper-grid--gaming {
-    background-color: var.$gaming-bg;
+    background-color: var.$gaming-bg;    
 
     .wrapper-grid__player-stats {
         background-color: var.$gaming-surface;
-        border-color: var.$pink-border;
+        border-color: var.$pink-border;        
     }
 
     .wrapper-grid__exit-btn {
@@ -34,6 +35,10 @@
         border-color: var.$accent-pink;
     }
 }
+
+    #playerOrange{ color:#fff}
+    #playerBlue{ color:#fff}
+
 .game-over--gaming {
     background-color: var.$gaming-bg;
 
@@ -45,4 +50,8 @@
         background-color: transparent;
         border: 2px solid var.$accent-pink;
     }
+}
+
+#plyerOrange {
+    color: #fff
 }
