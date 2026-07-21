@@ -15,15 +15,14 @@
 
 @mixin rdy-h1 {
     font-family: $font-main;
-    font-weight: $font-weight7;
-    font-style: $font-styleB;
+    font-weight: $font-weight7;    
     font-size: 140px;
 }
 
 @mixin play-h2 {
     font-family: $font-sec;
     font-weight: 400;
-    font-style: $font-styleR;
+    
     font-size: 48px;
 }
 
@@ -35,8 +34,7 @@
 
 @mixin checked-text {
     font-family: Almarai;
-    font-weight: 700;
-    font-style: Bold;
+    font-weight: 700;    
     font-size: 20px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -44,8 +42,7 @@
 
 @mixin norm-text {
     font-family: Almarai;
-    font-weight: 400;
-    font-style: Regular;
+    font-weight: 400;    
     font-size: 20px;
     line-height: 100%;
     letter-spacing: 0%;
@@ -107,8 +104,7 @@
         gap: $gap;
         color: #ffff;
         font-family: Rose;
-        font-weight: 400;
-        font-style: Regular;
+        font-weight: 400;        
         font-size: 26px;
     }
 

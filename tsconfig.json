@@ -8,13 +8,15 @@
     /* Module & Auflösung */
     "module": "ESNext",                  // ES Modules für Vite/Rollup
     "moduleResolution": "Bundler",       // spezielle Auflösung für Vite, ersetzt "node"
-    "isolatedModules": true,             // jede Datei wird wie ein Modul behandelt
+    "isolatedModules": true,             // jede Datei wird wie ein Modul behandelt    
+    "types": ["vite/client"],
 
 
     /* Typprüfung */
     "strict": true,                      // alle strikten Checks aktivieren
     "skipLibCheck": true,                // schneller, da node_modules-Typen nicht geprüft werden
     "noEmit": true,                      // keine JS-Ausgabe, Build übernimmt Vite
+    "noUncheckedSideEffectImports": false,
 
 
     /* Sonstiges */
@@ -22,6 +24,6 @@
     "resolveJsonModule": true,           // erlaubt `import data from './data.json'`
     "forceConsistentCasingInFileNames": true
   },
-  "include": ["src"],                    // nur eigenen Code kompilieren
+  "include": ["src/**/*"],                    // nur eigenen Code kompilieren
   "exclude": ["node_modules", "dist"]    // keine Fremd- oder Build-Dateien prüfen
 }
