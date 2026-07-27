@@ -35,4 +35,10 @@
     &--flipped .flip__inner {
         transform: rotateY(180deg);
     }
+
+    &--matched .flip__front {
+        box-sizing: border-box;
+        border: 5px solid var.$border-teal;
+        box-shadow: 0 0 14px rgba(77, 213, 188, 0.55);
+    }
 }
