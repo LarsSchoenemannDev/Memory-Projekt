@@ -183,22 +183,16 @@ function layoutChange(): void {
     }
 }
 
-function changeImg(): void {
-    if (gameSettings.theme.length === 0) {
-        return
-    } else {
-        const img = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
-        if (!gameSettings.theme[0]) return
-        img.forEach(e => {
-            const theme = gameSettings.theme[0].toLowerCase().replaceAll(" ", "-");
-            const isMatch = e.src.toLowerCase().includes(theme);
-            if (isMatch) {
-                e.classList.remove("hidden");
-            } else {
-                e.classList.add("hidden");
-            }
-        });
-    }
+function changeImg(previewTheme?: string): void {
+    const images = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
+    const selectedTheme = previewTheme ?? gameSettings.theme[0];
+    const themeName = selectedTheme?.toLowerCase().replaceAll(" ", "-");
+
+    images.forEach(image => {
+        const showQuestion = !themeName && image.classList.contains("wrapper--question");
+        const showTheme = themeName && image.src.toLowerCase().includes(themeName);
+        image.classList.toggle("hidden", !showQuestion && !showTheme);
+    });
 }
 
 function cardsGenerate(mapSize: number) {
@@ -318,6 +312,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
     checkboxes.forEach((checkbox) => {
         checkbox.addEventListener("change", init,);
+    });
+
+    const themeInputs = document.querySelectorAll<HTMLInputElement>("[data-theme]");
+    themeInputs.forEach(input => {
+        const row = input.closest<HTMLElement>(".settings-menu__row--checkbox");
+        row?.addEventListener("mouseenter", () => changeImg(input.dataset.theme));
+        row?.addEventListener("mouseleave", () => changeImg());
     });
 });
 

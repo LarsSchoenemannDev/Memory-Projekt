@@ -12,8 +12,7 @@
         @include flex-direction-c;
         gap: 28px;
         background-color: var.$primary-color;
-        padding: 40px 48px;
-        border-radius: 16px;
+        padding: 40px 48px;        
         max-width: 420px;
         text-align: center;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -40,13 +39,8 @@
             transition: all 0.2s ease;
         }
 
+        #exitGame,
         #returnBack {
-            background-color: var.$accent-teal;
-            color: var.$primary-color;
-            border: none;
-        }
-
-        #exitGame {
             background-color: rgba(var.$accent-teal, 0.08);
             color: var.$accent-teal;
             border: 2px solid var.$accent-teal;

@@ -22,11 +22,13 @@
     .player1,
     #playerBlue {
         color: var.$player-blue;
+        font-size: 22px;
     }
 
     .player2,
     #playerOrange {
         color: var.$player-orange;
+        font-size: 22px;
     }
 
     .wrapper-grid__current-player {
@@ -56,14 +58,16 @@
         }
     }
 
-    .popup__actions #returnBack {
+    .popup__actions #returnBack,
+    .popup__actions #exitGame {
         transition:
             background-color 0.2s ease,
             box-shadow 0.2s ease;
+            border-radius: 0;
 
         &:hover {
-            background-color: rgba(102, 207, 188, 0.6);
-            box-shadow: inset 0 0 0 3px var.$accent-teal;
+            background-color: var.$accent-teal;
+            color: var.$bg-color;
         }
     }
 
@@ -121,7 +125,7 @@
     .wrapper-grid__exit-btn {
         background-color: transparent;
         border-color: var.$accent-pink;
-        border-radius: 7px;
+        border-radius: 18px;
 
         svg path {
             transition:
@@ -195,6 +199,7 @@
         color: var.$accent-pink;
         border: 2px solid var.$accent-pink;
         box-shadow: 0 7px 12px rgba(0, 0, 0, 0.22);
+        border-radius: 12px;
 
         &:hover {
             background-color: var.$accent-pink;
@@ -203,11 +208,11 @@
         }
     }
 
-    .popup__actions #exitGame {
-        background-color: var.$pink-soft;
+    .popup__actions #exitGame {       
         color: var.$accent-pink;
         border-color: var.$accent-pink;
         box-shadow: 0 7px 12px rgba(0, 0, 0, 0.22);
+        border-radius: 12px;
 
         &:hover {
             background-color: var.$accent-pink;
