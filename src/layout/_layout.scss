@@ -29,7 +29,7 @@
     &__game-settings {
         @include play-h2;
         @include flex-center;
-        background-color: var.$bg-color;
+        background-color: var.$bg-color-wrapper;
         min-width: 450px;
         height: 85px;
         font-size: 22px;
@@ -53,10 +53,16 @@
         cursor: pointer;
         font-size: var.$font-24;
         font-weight: 800;
+        margin-left: 18px;
 
         &:disabled {
             opacity: 0.4;
             cursor: not-allowed;
+        }
+
+        &:hover {
+            transform: scale(1.20);
+            transition: transform 0.3s linear;
         }
     }
 }

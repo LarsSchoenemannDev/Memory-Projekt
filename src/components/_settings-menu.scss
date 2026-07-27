@@ -17,17 +17,43 @@
         padding-left: 40px;
     }
 
+    &__text {
+        @include norm-text;
+
+    }
+
     &__row {
         @include tr;
         padding: 8px 0;
+        border: 1px solid rgba(255, 0, 0, 0);
+
+        &--checkbox {
+            cursor: pointer;
+
+        }
+
+        &:hover {
+
+            >.settings-menu__text {
+                font-weight: 700;
+            }
+
+            .active {
+                display: block;
+
+                >.arrow {                    
+                    fill: rgba(255, 187, 0, 0.562);  
+                }
+            }
+
+            .default {
+                display: none;
+            }
+        }
     }
 
     &__row-title {
         @include checked-text;
-    }
-
-    &__text {
-        @include norm-text;
     }
 
     &__checkbox {
@@ -35,6 +61,7 @@
         top: 0;
         left: 0;
         opacity: 0;
+
 
         &:checked {
             &~.default {
