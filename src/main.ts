@@ -1,7 +1,6 @@
 import "./main.scss";
 
 import type { firstPick, GameSettings, secPick, ThemeAssets, Scores, PlayerColors } from "./interfaces";
-import { gameStatsInnerHTML } from "./innerHTML";
 import { gameLayoutInnerHTML } from "./innerHTML"
 import { playerSVGOrange } from "./innerHTML"
 import { playerSVGBlue } from "./innerHTML"
@@ -210,14 +209,26 @@ function cardsGenerate(mapSize: number) {
 }
 
 function updateSettingsUI(): void {
-    const anchors = [document.getElementById("content")];
-    anchors.forEach((anchor) => {
-        if (anchor) {
-            anchor.innerHTML = "";
-            const disabled = isReady() ? "" : "disabled";
-            anchor.innerHTML += gameStatsInnerHTML(gameSettings.theme, gameSettings.player, gameSettings.mapSize, disabled);
-        }
-    });
+    const themeElement = document.getElementById("theme");
+    const playerElement = document.getElementById("player");
+    const sizeElement = document.getElementById("size");
+    const startButton = document.getElementById("startButton") as HTMLButtonElement | null;
+
+    if (themeElement) {
+        themeElement.textContent = gameSettings.theme[0] ?? "";
+    }
+
+    if (playerElement) {
+        playerElement.textContent = gameSettings.player[0] ?? "";
+    }
+
+    if (sizeElement) {
+        sizeElement.textContent = String(gameSettings.mapSize[0] ?? "");
+    }
+
+    if (startButton) {
+        startButton.disabled = !isReady();
+    }
 }
 
 function gameLayout(): void {

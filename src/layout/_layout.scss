@@ -30,16 +30,28 @@
         @include play-h2;
         @include flex-center;
         background-color: var.$bg-color-wrapper;
-        min-width: 450px;
+        width: 800px;
         height: 85px;
         font-size: 22px;
         gap: var.$gap;
         justify-content: space-between;
         padding: 0px 32px 0 32px;
 
-        &p {
-            width: 24px;
-            height: 100%;
+        p {
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        #theme {
+            width: 200px;
+        }
+
+        #player {
+            width: 80px;
+        }
+
+        #size {
+            width: 36px;
         }
     }
 
