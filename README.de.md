@@ -4,10 +4,6 @@ Ein Memory-Kartenspiel für zwei Spieler im Browser, gebaut mit purem TypeScript
 
 🇬🇧 This README in [English](README.md)
 
-## Screenshots
-
-Screenshots von Start-, Settings-, Spiel- und Game-Over-Screen kommen hier hin.
-
 ## Features
 
 - **Zwei Themes** — *Code vibes* und *Gaming*, jeweils mit eigenem Kartenset, eigener Farbwelt und eigenem Board-Styling
@@ -19,12 +15,10 @@ Screenshots von Start-, Settings-, Spiel- und Game-Over-Screen kommen hier hin.
 
 ## Tech-Stack
 
-| | |
-|---|---|
-| Sprache | TypeScript 6 (`strict`, `noEmit`) |
-| Build-Tool | Vite 8 |
-| Styling | SCSS, 7-1-Pattern |
-| Runtime-Abhängigkeiten | keine |
+- **Sprache:** TypeScript 6, strict mode
+- **Build-Tool:** Vite 8
+- **Styling:** SCSS, 7-1-Pattern
+- **Runtime-Abhängigkeiten:** keine
 
 ## Erste Schritte
 
@@ -50,15 +44,13 @@ npm install
 npm run dev
 ```
 
-Vite gibt eine lokale URL aus, meist <http://localhost:5173>.
+Vite gibt eine lokale URL aus, meist http://localhost:5173
 
 ## Scripts
 
-| Befehl | Wirkung |
-|---|---|
-| `npm run dev` | Startet den Vite-Dev-Server mit Hot Reload |
-| `npm run build` | Prüft die Typen mit `tsc --noEmit` und bundelt nach `dist/` |
-| `npm run preview` | Liefert den Production-Build aus `dist/` lokal aus |
+- `npm run dev` startet den Vite-Dev-Server mit Hot Reload
+- `npm run build` prüft die Typen mit `tsc --noEmit` und bundelt nach `dist/`
+- `npm run preview` liefert den Production-Build aus `dist/` lokal aus
 
 ## Spielanleitung
 

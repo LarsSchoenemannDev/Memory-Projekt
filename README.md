@@ -4,10 +4,6 @@ A two-player memory card game for the browser, built with vanilla TypeScript, Vi
 
 🇩🇪 Diese README auf [Deutsch](README.de.md)
 
-## Screenshots
-
-Screenshots of the start, settings, game and game-over screens will be added here.
-
 ## Features
 
 - **Two visual themes** — *Code vibes* and *Gaming*, each with its own card set, colour scheme and board styling
@@ -19,12 +15,10 @@ Screenshots of the start, settings, game and game-over screens will be added her
 
 ## Tech stack
 
-| | |
-|---|---|
-| Language | TypeScript 6 (`strict`, `noEmit`) |
-| Build tool | Vite 8 |
-| Styling | SCSS, 7-1 pattern |
-| Runtime dependencies | none |
+- **Language:** TypeScript 6, strict mode
+- **Build tool:** Vite 8
+- **Styling:** SCSS, 7-1 pattern
+- **Runtime dependencies:** none
 
 ## Getting started
 
@@ -50,15 +44,13 @@ npm install
 npm run dev
 ```
 
-Vite prints a local URL, usually <http://localhost:5173>.
+Vite prints a local URL, usually http://localhost:5173
 
 ## Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Starts the Vite dev server with hot reload |
-| `npm run build` | Type-checks with `tsc --noEmit`, then bundles into `dist/` |
-| `npm run preview` | Serves the production build from `dist/` locally |
+- `npm run dev` starts the Vite dev server with hot reload
+- `npm run build` type-checks with `tsc --noEmit`, then bundles into `dist/`
+- `npm run preview` serves the production build from `dist/` locally
 
 ## How to play
 
@@ -67,9 +59,9 @@ Vite prints a local URL, usually <http://localhost:5173>.
 3. Flip two cards. A match scores a point for the current player and the cards stay face up; a mismatch flips them back and passes the turn.
 4. Once every pair is found, the game-over screen shows the final score and the winner.
 
-**Keyboard** — `Tab` moves between cards, `Enter` or `Space` flips one.
+**Keyboard:** `Tab` moves between cards, `Enter` or `Space` flips one.
 
-**Debug** — `Ctrl` + `P` auto-plays the entire board, useful for reaching the game-over screen quickly.
+**Debug:** `Ctrl` + `P` auto-plays the entire board, useful for reaching the game-over screen quickly.
 
 ## Project structure
 
