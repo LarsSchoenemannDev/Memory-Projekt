@@ -15,8 +15,6 @@ A two-player memory card game for the browser, built with vanilla TypeScript, Vi
 
 ## Tech stack
 
-| | |
-
 | Language | TypeScript 6 (`strict`, `noEmit`) |
 | Build tool | Vite 8 |
 | Styling | SCSS, 7-1 pattern |
