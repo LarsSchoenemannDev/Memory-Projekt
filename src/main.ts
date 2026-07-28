@@ -1,6 +1,10 @@
 import "./styles/main.scss";
 
-import type { firstPick, GameSettings, secPick, ThemeAssets, Scores, PlayerColors } from "./interfaces";
+import type { Scores, PlayerColors } from "./interfaces";
+import { theme } from "./themes";
+import { PLAYER_COLOR, gameSettings, firstPick, secPick } from "./state";
+import { showScreen, goToSettings, goHome, openExitPopup, closeExitPopup, quitToHome } from "./screens";
+import { init, isReady, changeImg } from "./settings";
 import { gameLayoutInnerHTML } from "./innerHTML"
 import { playerSVGOrange } from "./innerHTML"
 import { playerSVGBlue } from "./innerHTML"
@@ -15,84 +19,7 @@ let activePlayer = 1;
 let matchedPairs = 0;
 let totalPairs = 0;
 
-const PLAYER_COLOR: Record<"blue" | "orange", string> = {
-    blue: "#2BB1FF",
-    orange: "#F58E39",
-};
-
-const gameSettings: GameSettings = {
-    theme: [],
-    player: [],
-    mapSize: []
-};
-
-const theme: ThemeAssets = {
-    "code-vibes-theme": [
-        "assets/img/themes/code/Property 1=Component 22-1.png",
-        "assets/img/themes/code/Property 1=Component 22-2.png",
-        "assets/img/themes/code/Property 1=Component 22-3.png",
-        "assets/img/themes/code/Property 1=Component 22-4.png",
-        "assets/img/themes/code/Property 1=Component 22-5.png",
-        "assets/img/themes/code/Property 1=Component 22-6.png",
-        "assets/img/themes/code/Property 1=Component 22-7.png",
-        "assets/img/themes/code/Property 1=Component 22-8.png",
-        "assets/img/themes/code/Property 1=Component 22-9.png",
-        "assets/img/themes/code/Property 1=Component 22-10.png",
-        "assets/img/themes/code/Property 1=Component 22-11.png",
-        "assets/img/themes/code/Property 1=Component 22-12.png",
-        "assets/img/themes/code/Property 1=Component 22-13.png",
-        "assets/img/themes/code/Property 1=Component 22-14.png",
-        "assets/img/themes/code/Property 1=Component 22-15.png",
-        "assets/img/themes/code/Property 1=Component 22-16.png",
-        "assets/img/themes/code/Property 1=Component 22-17.png",
-        "assets/img/themes/code/Property 1=Component 22-18.png",
-    ],
-    codeFront: ["assets/img/themes/code/Front.png"],
-    "gaming-theme": [
-        "assets/img/themes/gaming/Asset3@2x1.png",
-        "assets/img/themes/gaming/Asset4@2x1.png",
-        "assets/img/themes/gaming/Asset5@2x1.png",
-        "assets/img/themes/gaming/Asset6@2x1.png",
-        "assets/img/themes/gaming/Asset7@2x1.png",
-        "assets/img/themes/gaming/Asset8@2x1.png",
-        "assets/img/themes/gaming/Asset9@2x1.png",
-        "assets/img/themes/gaming/Asset10@2x1.png",
-        "assets/img/themes/gaming/Asset11@2x1.png",
-        "assets/img/themes/gaming/Asset12@2x1.png",
-        "assets/img/themes/gaming/Asset13@2x1.png",
-        "assets/img/themes/gaming/Asset14@2x1.png",
-        "assets/img/themes/gaming/Asset15@2x1.png",
-        "assets/img/themes/gaming/Asset16@2x1.png",
-        "assets/img/themes/gaming/Asset17@2x1.png",
-        "assets/img/themes/gaming/Asset18@2x1.png",
-        "assets/img/themes/gaming/Asset2@2x1.png",
-        "assets/img/themes/gaming/Asset1@2x1.png",
-    ],
-    gamingFront: ["assets/img/themes/gaming/Front.png"]
-}
-
-const firstPick: firstPick = {
-    cardid: null,
-    cardindex: null,
-    cardelement: null,
-}
-const secPick: secPick = {
-    cardid: null,
-    cardindex: null,
-    cardelement: null,
-}
-
 const game = document.getElementById("gameLayout");
-
-function init() {
-    layoutChange();
-    updateSettingsUI();
-    changeImg();
-}
-
-function isReady(): boolean {
-    return gameSettings.theme.length > 0 && gameSettings.player.length > 0 && gameSettings.mapSize.length > 0;
-}
 
 function startGame(): void {
     if (!isReady()) return;
@@ -108,47 +35,13 @@ function startGame(): void {
 function applyBoardTheme(): void {
     const grid = document.getElementById("gamingWrapper");
     if (!grid) return;
-    const theme = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-");
-    const isGaming = theme === "gaming-theme";
+    const selected = gameSettings.theme[0]?.toLowerCase().replaceAll(" ", "-");
+    const isGaming = selected === "gaming-theme";
     grid.classList.toggle("wrapper-grid--gaming", isGaming);
     const back = document.getElementById("returnBack");
     const quit = document.getElementById("exitGame");
     if (back) back.textContent = isGaming ? "No, back to game" : "Back to game";
     if (quit) quit.textContent = isGaming ? "Yes, quit game" : "Exit game";
-}
-
-function showScreen(name: "start" | "settings" | "game" | "gameover"): void {
-    const screens: Record<string, string> = {
-        start: "startScreen",
-        settings: "setting",
-        game: "gamingWrapper",
-        gameover: "gameOverScreen",
-    };
-    Object.values(screens).forEach(id => {
-        document.getElementById(id)?.classList.add("hidden");
-    });
-    document.getElementById(screens[name])?.classList.remove("hidden");
-}
-
-function goToSettings(): void {
-    showScreen("settings");
-}
-
-function openExitPopup(): void {
-    document.getElementById("exit-action")?.classList.remove("hidden");
-}
-
-function closeExitPopup(): void {
-    document.getElementById("exit-action")?.classList.add("hidden");
-}
-
-function quitToHome(): void {
-    closeExitPopup();
-    showScreen("settings");
-}
-
-function goHome(): void {
-    showScreen("start");
 }
 
 (window as any).goToSettings = goToSettings;
@@ -157,42 +50,6 @@ function goHome(): void {
 (window as any).quitToHome = quitToHome;
 (window as any).goHome = goHome;
 (window as any).startGame = startGame;
-
-function clearform() {
-    let x = Object.values(gameSettings)
-    x.forEach(e => e.length = 0)
-}
-
-function layoutChange(): void {
-    clearform()
-    const checked = Array.from(document.querySelectorAll<HTMLElement>(":checked"));
-    if (checked.length > 0) {
-        checked.forEach(e => {
-            const data = e.dataset
-            if (data.theme) {
-                gameSettings.theme.push(data.theme);
-            }
-            if (data.playerselect) {
-                gameSettings.player.push(data.playerselect);
-            }
-            if (data.size) {
-                gameSettings.mapSize.push(Number(data.size));
-            }
-        })
-    }
-}
-
-function changeImg(previewTheme?: string): void {
-    const images = document.querySelectorAll<HTMLImageElement>(".wrapper__img img");
-    const selectedTheme = previewTheme ?? gameSettings.theme[0];
-    const themeName = selectedTheme?.toLowerCase().replaceAll(" ", "-");
-
-    images.forEach(image => {
-        const showQuestion = !themeName && image.classList.contains("wrapper--question");
-        const showTheme = themeName && image.src.toLowerCase().includes(themeName);
-        image.classList.toggle("hidden", !showQuestion && !showTheme);
-    });
-}
 
 function cardsGenerate(mapSize: number) {
     const pairs = mapSize / 2;
@@ -208,29 +65,6 @@ function cardsGenerate(mapSize: number) {
     return cards
 }
 
-function updateSettingsUI(): void {
-    const themeElement = document.getElementById("theme");
-    const playerElement = document.getElementById("player");
-    const sizeElement = document.getElementById("size");
-    const startButton = document.getElementById("startButton") as HTMLButtonElement | null;
-
-    if (themeElement) {
-        themeElement.textContent = gameSettings.theme[0] ?? "";
-    }
-
-    if (playerElement) {
-        playerElement.textContent = gameSettings.player[0] ?? "";
-    }
-
-    if (sizeElement) {
-        sizeElement.textContent = String(gameSettings.mapSize[0] ?? "");
-    }
-
-    if (startButton) {
-        startButton.disabled = !isReady();
-    }
-}
-
 function gameLayout(): void {
     const content = document.getElementById("gameLayout");
     if (content) {
@@ -243,6 +77,24 @@ function gameLayout(): void {
         cards.forEach((cardValue, i) => {
             content.innerHTML += gameLayoutInnerHTML(cardValue, i, images[cardValue], frontImg);
         });
+    }
+}
+
+function resizeplayermap() {
+    let x = document.getElementById("gameLayout")
+    if (!x) return;
+    const mapSize = gameSettings.mapSize[0];
+    if (mapSize === undefined || mapSize === null) {
+        return;
+    }
+    if (mapSize === 16) {
+        x.style.gridTemplateColumns = "repeat(4,1fr)";
+    }
+    if (mapSize === 24) {
+        x.style.gridTemplateColumns = "repeat(6,1fr)";
+    }
+    if (mapSize === 36) {
+        x.style.gridTemplateColumns = "repeat(6,1fr)";
     }
 }
 
@@ -285,6 +137,11 @@ function stylePick(target: HTMLElement): void {
     layout.classList.add("flip--flipped");
 }
 
+function styleReset(): void {
+    firstPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
+    secPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
+}
+
 function gameEngine() {
     if (secPick.cardid === null) {
         return;
@@ -310,83 +167,6 @@ function resetRound(): void {
     secPick.cardid = null;
     secPick.cardindex = null;
     secPick.cardelement = null;
-}
-
-function styleReset(): void {
-    firstPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
-    secPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    init();
-    showScreen("start");
-    const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
-    checkboxes.forEach((checkbox) => {
-        checkbox.addEventListener("change", init,);
-    });
-
-    const themeInputs = document.querySelectorAll<HTMLInputElement>("[data-theme]");
-    themeInputs.forEach(input => {
-        const row = input.closest<HTMLElement>(".settings-menu__row--checkbox");
-        row?.addEventListener("mouseenter", () => changeImg(input.dataset.theme));
-        row?.addEventListener("mouseleave", () => changeImg());
-    });
-});
-
-function resizeplayermap() {
-    let x = document.getElementById("gameLayout")
-    if (!x) return;
-    const mapSize = gameSettings.mapSize[0];
-    if (mapSize === undefined || mapSize === null) {
-        return;
-    }
-    if (mapSize === 16) {
-        x.style.gridTemplateColumns = "repeat(4,1fr)";
-    }
-    if (mapSize === 24) {
-        x.style.gridTemplateColumns = "repeat(6,1fr)";
-    }
-    if (mapSize === 36) {
-        x.style.gridTemplateColumns = "repeat(6,1fr)";
-    }
-}
-
-function switchPlayer(): void {
-    activePlayer = activePlayer === 1 ? 2 : 1;
-    updateActivePlayerUI();
-}
-
-function updateActivePlayerUI(): void {
-    const playerSVG = document.getElementById("playerSVG");
-    if (!playerSVG) return;
-    const { p1, p2 } = getPlayerColors();
-    const currentColor = activePlayer === 1 ? p1 : p2;
-    if (currentColor === "orange") {
-        playerSVG.innerHTML = playerSVGOrange();
-    } else {
-        playerSVG.innerHTML = playerSVGBlue();
-    }
-}
-
-function getPlayerColors(): PlayerColors {
-    const chosen = gameSettings.player[0];
-    return {
-        p1: chosen,
-        p2: chosen === "orange" ? "blue" : "orange"
-    };
-}
-
-function updatePlayerStats(): void {
-    const blue = document.getElementById("playerBlue");
-    const orange = document.getElementById("playerOrange");
-    const { p1, p2 } = getPlayerColors();
-    if (p1 === "blue") {
-        if (blue) blue.textContent = String(player1Moves);
-        if (orange) orange.textContent = String(player2Moves);
-    } else {
-        if (orange) orange.textContent = String(player1Moves);
-        if (blue) blue.textContent = String(player2Moves);
-    }
 }
 
 function win(): void {
@@ -424,9 +204,41 @@ function resetScores(): void {
     resetRound();
 }
 
-function checkGameOver(): void {
-    if (totalPairs > 0 && matchedPairs >= totalPairs) {
-        showGameOver();
+function switchPlayer(): void {
+    activePlayer = activePlayer === 1 ? 2 : 1;
+    updateActivePlayerUI();
+}
+
+function getPlayerColors(): PlayerColors {
+    const chosen = gameSettings.player[0];
+    return {
+        p1: chosen,
+        p2: chosen === "orange" ? "blue" : "orange"
+    };
+}
+
+function updateActivePlayerUI(): void {
+    const playerSVG = document.getElementById("playerSVG");
+    if (!playerSVG) return;
+    const { p1, p2 } = getPlayerColors();
+    const currentColor = activePlayer === 1 ? p1 : p2;
+    if (currentColor === "orange") {
+        playerSVG.innerHTML = playerSVGOrange();
+    } else {
+        playerSVG.innerHTML = playerSVGBlue();
+    }
+}
+
+function updatePlayerStats(): void {
+    const blue = document.getElementById("playerBlue");
+    const orange = document.getElementById("playerOrange");
+    const { p1 } = getPlayerColors();
+    if (p1 === "blue") {
+        if (blue) blue.textContent = String(player1Moves);
+        if (orange) orange.textContent = String(player2Moves);
+    } else {
+        if (orange) orange.textContent = String(player1Moves);
+        if (blue) blue.textContent = String(player2Moves);
     }
 }
 
@@ -436,6 +248,12 @@ function getScores(): Scores {
         return { blue: player1Moves, orange: player2Moves };
     }
     return { blue: player2Moves, orange: player1Moves };
+}
+
+function checkGameOver(): void {
+    if (totalPairs > 0 && matchedPairs >= totalPairs) {
+        showGameOver();
+    }
 }
 
 function showGameOver(): void {
@@ -492,6 +310,22 @@ async function autoPlay(): Promise<void> {
         await sleep(30);
     }
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    init();
+    showScreen("start");
+    const checkboxes = document.querySelectorAll<HTMLInputElement>("input[type='radio']");
+    checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", init,);
+    });
+
+    const themeInputs = document.querySelectorAll<HTMLInputElement>("[data-theme]");
+    themeInputs.forEach(input => {
+        const row = input.closest<HTMLElement>(".settings-menu__row--checkbox");
+        row?.addEventListener("mouseenter", () => changeImg(input.dataset.theme));
+        row?.addEventListener("mouseleave", () => changeImg());
+    });
+});
 
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === "p") {
