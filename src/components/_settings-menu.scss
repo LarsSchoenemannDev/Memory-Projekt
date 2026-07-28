@@ -81,5 +81,11 @@
     &__group {
         margin: 36px 0;
         max-width: 400px;
+        border: none;
+        min-width: 0;
+    }
+
+    &__title {
+        font-size: 63px;
     }
 }

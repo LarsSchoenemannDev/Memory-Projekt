@@ -144,7 +144,7 @@ function closeExitPopup(): void {
 
 function quitToHome(): void {
     closeExitPopup();
-    showScreen("start");
+    showScreen("settings");
 }
 
 function goHome(): void {
@@ -392,6 +392,8 @@ function updatePlayerStats(): void {
 function win(): void {
     firstPick.cardid?.classList.add("flip--matched");
     secPick.cardid?.classList.add("flip--matched");
+    firstPick.cardid?.setAttribute("disabled", "");
+    secPick.cardid?.setAttribute("disabled", "");
 
     if (activePlayer === 1) {
         player1Moves++

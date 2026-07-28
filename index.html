@@ -8,9 +8,10 @@
     <link rel="shortcut icon" href="./assets/img/blue.svg" type="image/x-icon">
 </head>
 <body>
+<main>
     <section class="main" id="startScreen">
         <div class="main__wrapper">
-            <h2 class="main__subtitle">It`s play time.</h2>
+            <p class="main__subtitle">It`s play time.</p>
             <h1 class="main__title">Ready to play?</h1>
         </div>
         <button class="play-btn" onclick="goToSettings()">
@@ -37,7 +38,7 @@
     </section>
     <section class="settings-menu hidden" id="setting">
         <div class="settings-menu__header">
-            <h3 class="settings-menu__title">Settings</h3>
+            <h2 class="settings-menu__title">Settings</h2>
             <svg class="settings-menu__separator" width="263" height="24" viewBox="0 0 263 24" fill="none"
                 xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -47,8 +48,8 @@
         </div>
         <section class="wrapper">
             <section class="wrapper__left">
-                <div class="settings-menu__group">
-                    <div class="settings-menu__row">
+                <fieldset class="settings-menu__group">
+                    <legend class="settings-menu__row">
                         <svg class="settings-menu__row-icon" width="32" height="32" viewBox="0 0 32 32" fill="none"
                             xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_16597_3827" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
@@ -61,9 +62,9 @@
                                     fill="#DA1EBA" />
                             </g>
                         </svg>
-                        <h4 class="settings-menu__row-title">Game themes</h4>
-                    </div>
-                    <form class="settings-menu__form">
+                        <h3 class="settings-menu__row-title">Game themes</h3>
+                    </legend>
+                    <div class="settings-menu__form">
                         <label class="settings-menu__row settings-menu__row--checkbox">
                             <input type="radio" name="theme-selection" class="settings-menu__checkbox"
                                 data-theme="Code vibes theme">
@@ -110,18 +111,18 @@
                                     fill="#F0EA6E" />
                             </svg>
                         </label>
-                    </form>
-                </div>
-                <div class="settings-menu__group">
-                    <div class="settings-menu__row">
+                    </div>
+                </fieldset>
+                <fieldset class="settings-menu__group">
+                    <legend class="settings-menu__row">
                         <svg width="32" height="32" viewBox="0 0 22 27" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M2.66667 26.6667C1.93333 26.6667 1.30556 26.4056 0.783333 25.8833C0.261111 25.3611 0 24.7333 0 24V21.3667C0 20.9222 0.1 20.5111 0.3 20.1333C0.5 19.7556 0.766667 19.4333 1.1 19.1667C2.63333 17.9222 3.78333 16.6667 4.55 15.4C5.31667 14.1333 5.85556 13 6.16667 12H4C3.62222 12 3.30556 11.8722 3.05 11.6167C2.79444 11.3611 2.66667 11.0444 2.66667 10.6667C2.66667 10.2889 2.79444 9.97222 3.05 9.71667C3.30556 9.46111 3.62222 9.33333 4 9.33333H5.66667C5.35556 8.84444 5.11111 8.32222 4.93333 7.76667C4.75556 7.21111 4.66667 6.62222 4.66667 6C4.66667 4.33333 5.25 2.91667 6.41667 1.75C7.58333 0.583333 9 0 10.6667 0C12.3333 0 13.75 0.583333 14.9167 1.75C16.0833 2.91667 16.6667 4.33333 16.6667 6C16.6667 6.62222 16.5778 7.21111 16.4 7.76667C16.2222 8.32222 15.9778 8.84444 15.6667 9.33333H17.3333C17.7111 9.33333 18.0278 9.46111 18.2833 9.71667C18.5389 9.97222 18.6667 10.2889 18.6667 10.6667C18.6667 11.0444 18.5389 11.3611 18.2833 11.6167C18.0278 11.8722 17.7111 12 17.3333 12H15.1667C15.4778 13 16.0167 14.1333 16.7833 15.4C17.55 16.6667 18.7 17.9222 20.2333 19.1667C20.5667 19.4333 20.8333 19.7556 21.0333 20.1333C21.2333 20.5111 21.3333 20.9222 21.3333 21.3667V24C21.3333 24.7333 21.0722 25.3611 20.55 25.8833C20.0278 26.4056 19.4 26.6667 18.6667 26.6667H2.66667ZM2.66667 24H18.6667V21.3333C16.6222 19.7333 15.1444 18.0833 14.2333 16.3833C13.3222 14.6833 12.7111 13.2222 12.4 12H8.93333C8.62222 13.2222 8.01111 14.6833 7.1 16.3833C6.18889 18.0833 4.71111 19.7333 2.66667 21.3333V24ZM10.6667 9.33333C11.6 9.33333 12.3889 9.01111 13.0333 8.36667C13.6778 7.72222 14 6.93333 14 6C14 5.06667 13.6778 4.27778 13.0333 3.63333C12.3889 2.98889 11.6 2.66667 10.6667 2.66667C9.73333 2.66667 8.94444 2.98889 8.3 3.63333C7.65556 4.27778 7.33333 5.06667 7.33333 6C7.33333 6.93333 7.65556 7.72222 8.3 8.36667C8.94444 9.01111 9.73333 9.33333 10.6667 9.33333Z"
                                 fill="#1AE5BE" />
                         </svg>
-                        <h4 class="settings-menu__row-title">Choose player</h4>
-                    </div>
-                    <form class="settings-menu__form">
+                        <h3 class="settings-menu__row-title">Choose player</h3>
+                    </legend>
+                    <div class="settings-menu__form">
                         <label class="settings-menu__row settings-menu__row--checkbox">
                             <input type="radio" name="player-selection" class="settings-menu__checkbox"
                                 data-playerSelect="blue">
@@ -168,10 +169,10 @@
                                     fill="#F0EA6E" />
                             </svg>
                         </label>
-                    </form>
-                </div>
-                <div class="settings-menu__group">
-                    <div class="settings-menu__row">
+                    </div>
+                </fieldset>
+                <fieldset class="settings-menu__group">
+                    <legend class="settings-menu__row">
                         <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <mask id="mask0_2290_4600" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
                                 width="32" height="32">
@@ -183,9 +184,9 @@
                                     fill="#0635C9" />
                             </g>
                         </svg>
-                        <h4 class="settings-menu__row-title">Board size</h4>
-                    </div>
-                    <form class="settings-menu__form">
+                        <h3 class="settings-menu__row-title">Board size</h3>
+                    </legend>
+                    <div class="settings-menu__form">
                         <label class="settings-menu__row settings-menu__row--checkbox">
                             <input type="radio" name="size-selection" class="settings-menu__checkbox" data-size="16">
                             <svg class="default" width="24" height="24" viewBox="0 0 20 20" fill="none"
@@ -252,8 +253,8 @@
                                     fill="#F0EA6E" />
                             </svg>
                         </label>
-                    </form>
-                </div>
+                    </div>
+                </fieldset>
             </section>
             <section class="wrapper__right">
                 <div class="wrapper__img">
@@ -355,6 +356,7 @@
     <section class="game-over hidden" id="gameOverScreen">
         <div id="gameOverContent" class="game-over__content"></div>
     </section>
+</main>
     <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

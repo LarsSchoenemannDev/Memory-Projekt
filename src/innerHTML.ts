@@ -1,16 +1,16 @@
 
 export function gameLayoutInnerHTML(value: number, i: number, imgSrc: string, frontImg: string) {
     return `
-    <div class="flip" data-card="${value}" data-card-index="${i}">
-        <div class="flip__inner">
-            <div class="flip__back">
-                <img src="${frontImg}"/>
-            </div>
-            <div class="flip__front">
-                <img src="${imgSrc}"/>
-            </div>
-        </div>
-    </div>
+    <button type="button" class="flip" data-card="${value}" data-card-index="${i}" aria-label="Card ${i + 1}">
+        <span class="flip__inner">
+            <span class="flip__back">
+                <img src="${frontImg}" alt=""/>
+            </span>
+            <span class="flip__front">
+                <img src="${imgSrc}" alt=""/>
+            </span>
+        </span>
+    </button>
     `;
 }
 
