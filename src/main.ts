@@ -1,4 +1,4 @@
-import "./main.scss";
+import "./styles/main.scss";
 
 import type { firstPick, GameSettings, secPick, ThemeAssets, Scores, PlayerColors } from "./interfaces";
 import { gameLayoutInnerHTML } from "./innerHTML"
