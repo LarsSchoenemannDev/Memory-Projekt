@@ -1,16 +1,22 @@
 {
   "name": "memory-projekt",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A two-player memory card game built with vanilla TypeScript, Vite and SCSS",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc -noEmit && vite build",
     "preview": "vite preview"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "memory",
+    "game",
+    "typescript",
+    "vite",
+    "scss"
+  ],
+  "author": "Lars Schönemann",
+  "license": "UNLICENSED",
   "devDependencies": {
     "sass": "^1.100.0",
     "typescript": "^6.0.3",
