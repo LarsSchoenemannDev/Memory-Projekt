@@ -15,10 +15,10 @@ A two-player memory card game for the browser, built with vanilla TypeScript, Vi
 
 ## Tech stack
 
-| Language | TypeScript 6 (`strict`, `noEmit`) |
-| Build tool | Vite 8 |
-| Styling | SCSS, 7-1 pattern |
-| Runtime dependencies | none |
+Language  TypeScript 6 (`strict`, `noEmit`) 
+Build tool  Vite 8 
+Styling  SCSS, 7-1 pattern 
+Runtime dependencies  none 
 
 ## Getting started
 
@@ -50,9 +50,9 @@ Vite prints a local URL, usually <http://localhost:5173>.
 
 | Command | What it does |
 
-| `npm run dev` | Starts the Vite dev server with hot reload |
-| `npm run build` | Type-checks with `tsc --noEmit`, then bundles into `dist/` |
-| `npm run preview` | Serves the production build from `dist/` locally |
+`npm run dev` Starts the Vite dev server with hot reload 
+`npm run build` | Type-checks with `tsc --noEmit`, then bundles into `dist/`
+`npm run preview` | Serves the production build from `dist/` locally
 
 ## How to play
 
