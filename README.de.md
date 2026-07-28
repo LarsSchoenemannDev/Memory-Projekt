@@ -1,8 +1,8 @@
 # Memory Game
 
-Ein Memory-Kartenspiel für zwei Spieler im Browser, gebaut mit purem TypeScript, Vite und SCSS — ohne Framework, ohne Runtime-Abhängigkeiten.
+Ein Memory-Kartenspiel für zwei Spieler im Browser, gebaut mit purem TypeScript, Vite und SCSS ohne Framework, ohne Runtime-Abhängigkeiten.
 
-🇬🇧 This README in [English](README.md)
+This README in [English](README.md)
 
 ## Features
 

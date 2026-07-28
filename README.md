@@ -1,8 +1,8 @@
 # Memory Game
 
-A two-player memory card game for the browser, built with vanilla TypeScript, Vite and SCSS — no framework, no runtime dependencies.
+A two-player memory card game for the browser, built with vanilla TypeScript, Vite and SCSS no framework, no runtime dependencies.
 
-🇩🇪 Diese README auf [Deutsch](README.de.md)
+Diese README auf [Deutsch](README.de.md)
 
 ## Features
 
