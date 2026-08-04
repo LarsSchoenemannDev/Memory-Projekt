@@ -1,7 +1,17 @@
+/**
+ * Contains theme assets for different game themes.
+ *
+ * @type {{ [x: string]: (string[] | string[])[] }} An object where keys represent the name of a theme and values are arrays containing asset paths for that theme or special front images.
+ */
 import type { ThemeAssets } from "./interfaces";
 
 export const theme: ThemeAssets = {
-    "code-vibes-theme": [
+/**
+ * Array holding image assets for the "code-vibes-theme".
+ *
+ * @type {string[]} The URLs of the background image assets used in this theme.
+ */
+"code-vibes-theme": [
         "assets/img/themes/code/Property 1=Component 22-1.png",
         "assets/img/themes/code/Property 1=Component 22-2.png",
         "assets/img/themes/code/Property 1=Component 22-3.png",
@@ -22,7 +32,12 @@ export const theme: ThemeAssets = {
         "assets/img/themes/code/Property 1=Component 22-18.png",
     ],
     codeFront: ["assets/img/themes/code/Front.png"],
-    "gaming-theme": [
+/**
+ * Array holding image assets for the "gaming-theme".
+ *
+ * @type {string[]} The URLs of the background image assets used in this gaming theme.
+ */
+"gaming-theme": [
         "assets/img/themes/gaming/Asset3@2x1.png",
         "assets/img/themes/gaming/Asset4@2x1.png",
         "assets/img/themes/gaming/Asset5@2x1.png",

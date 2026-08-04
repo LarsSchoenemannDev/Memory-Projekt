@@ -1,3 +1,6 @@
+/**
+ * Imports the main scss file for styling.
+ */
 import "./styles/main.scss";
 
 import type { Scores, PlayerColors } from "./interfaces";
@@ -13,14 +16,33 @@ import { winnerInnerHTML } from "./innerHTML"
 import { drawInnerHTML } from "./innerHTML"
 import { confettiInnerHTML } from "./innerHTML"
 
+/**
+ * Player scores and game state variables.
+ *
+ * @var {number} player1Moves - Number of moves made by player 1.
+ * @var {number} player2Moves - Number of moves made by player 2.
+ * @var {number} activePlayer - ID of the current active player (1 or 2).
+ * @var {number} matchedPairs - Number of pairs already matched during the game.
+ * @var {number} totalPairs - Total number of card pairs in the game.
+ */
 let player1Moves = 0;
 let player2Moves = 0;
 let activePlayer = 1;
 let matchedPairs = 0;
 let totalPairs = 0;
 
+/**
+ * Gets a reference to the game layout element.
+ *
+ * @return {HTMLElement} The element representing the main game area.
+ */
 const game = document.getElementById("gameLayout");
 
+/**
+ * Starts a new game.
+ *
+ * @return {void} The function does not return any value, but initializes the game state and UI elements.
+ */
 function startGame(): void {
     if (!isReady()) return;
     resetScores();
@@ -32,6 +54,11 @@ function startGame(): void {
     showScreen("game");
 }
 
+/**
+ * Applies the selected board theme.
+ *
+ * @return {void} The function updates classList and textContent of specific elements based on the current theme setting.
+ */
 function applyBoardTheme(): void {
     const grid = document.getElementById("gamingWrapper");
     if (!grid) return;
@@ -51,6 +78,12 @@ function applyBoardTheme(): void {
 (window as any).goHome = goHome;
 (window as any).startGame = startGame;
 
+/**
+ * Generates a shuffled array of pairs for the game.
+ *
+ * @param {number} mapSize - The size of the game board which determines number of card pairs.
+ * @return {Array<number>} An array containing randomized pairs (each number represents a unique pair).
+ */
 function cardsGenerate(mapSize: number) {
     const pairs = mapSize / 2;
     const cards = [];
@@ -65,6 +98,11 @@ function cardsGenerate(mapSize: number) {
     return cards
 }
 
+/**
+ * Applies the layout of card pairs for a new round.
+ *
+ * @return {void} The function clears and updates HTML content inside "gameLayout" element.
+ */
 function gameLayout(): void {
     const content = document.getElementById("gameLayout");
     if (content) {
@@ -80,6 +118,11 @@ function gameLayout(): void {
     }
 }
 
+/**
+ * Dynamically adjusts the grid template for various map sizes.
+ *
+ * @return {void} The function modifies style attribute of the main game layout element based on current settings.
+ */
 function resizeplayermap() {
     let x = document.getElementById("gameLayout")
     if (!x) return;
@@ -98,6 +141,11 @@ function resizeplayermap() {
     }
 }
 
+/**
+ * Adds click event listener to the main game layout element for card flipping.
+ *
+ * @return {void} The function sets up event listeners and triggers corresponding functions on click events.
+ */
 if (game) {
     game.addEventListener("click", (event) => {
         const target = event.target as HTMLElement;
@@ -107,6 +155,12 @@ if (game) {
     });
 }
 
+/**
+ * Handles the card click event to flip and match cards.
+ *
+ * @param {HTMLElement} target - The HTML element representing the clicked card.
+ * @return {void} This function checks if a second card has been selected, performs matching logic otherwise flips the first card.
+ */
 function datatrnsform(target: HTMLElement) {
     const wrapper = target.closest(".flip") as HTMLElement;
 
@@ -131,17 +185,33 @@ function datatrnsform(target: HTMLElement) {
     }
 }
 
+/**
+ * Flips a card element.
+ *
+ * @param {HTMLElement} target - The HTML element representing the clicked card.
+ * @return {void} The function adds a CSS class to flip the card visually.
+ */
 function stylePick(target: HTMLElement): void {
     const layout = target.closest(".flip");
     if (!layout) return;
     layout.classList.add("flip--flipped");
 }
 
+/**
+ * Resets the flip state of cards after a pair match or non-match.
+ *
+ * @return {void} The function removes specific CSS classes to reset card flips.
+ */
 function styleReset(): void {
     firstPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
     secPick.cardelement?.closest(".flip")?.classList.remove("flip--flipped");
 }
 
+/**
+ * Executes the main logic for checking matches and updating state.
+ *
+ * @return {void} The function triggers winning or losing scenarios based on card pair matching results.
+ */
 function gameEngine() {
     if (secPick.cardid === null) {
         return;
@@ -154,6 +224,11 @@ function gameEngine() {
     }
 }
 
+/**
+ * Compares data of two selected cards to determine if they match.
+ *
+ * @return {boolean} Returns true if both selected cards have the same dataset value, false otherwise.
+ */
 function matched(): boolean {
     const cardone = (firstPick.cardid as HTMLElement)?.dataset.card;
     const cardtwo = (secPick.cardid as HTMLElement)?.dataset.card;
@@ -169,6 +244,11 @@ function resetRound(): void {
     secPick.cardelement = null;
 }
 
+/**
+ * Handles the logic when a match is made between two selected cards.
+ *
+ * @return {void} The function updates scores, disables matched card elements, and proceeds to next round if conditions are met.
+ */
 function win(): void {
     firstPick.cardid?.classList.add("flip--matched");
     secPick.cardid?.classList.add("flip--matched");
@@ -187,6 +267,11 @@ function win(): void {
     }, 20);
 }
 
+/**
+ * Handles the logic when a match is not made between two selected cards.
+ *
+ * @return {void} The function resets flipped card states and switches active player after an interval delay.
+ */
 function lose(): void {
     setTimeout(() => {
         styleReset();
@@ -195,6 +280,11 @@ function lose(): void {
     }, 800);
 }
 
+/**
+ * Resets the scores and game state for a new round.
+ *
+ * @return {void} The function resets player1Moves, player2Moves, activePlayer, matchedPairs, and totalPairs to their initial values.
+ */
 function resetScores(): void {
     player1Moves = 0;
     player2Moves = 0;
@@ -204,11 +294,21 @@ function resetScores(): void {
     resetRound();
 }
 
+/**
+ * Switches the turn to the next player.
+ *
+ * @return {void} The function toggles the value of `activePlayer` between 1 and 2.
+ */
 function switchPlayer(): void {
     activePlayer = activePlayer === 1 ? 2 : 1;
     updateActivePlayerUI();
 }
 
+/**
+ * Retrieves the colors assigned to each player based on user settings.
+ *
+ * @param {PlayerColors} Returns an object with keys p1 representing color of player one and p2 for player two. 
+ */
 function getPlayerColors(): PlayerColors {
     const chosen = gameSettings.player[0];
     return {
@@ -217,6 +317,11 @@ function getPlayerColors(): PlayerColors {
     };
 }
 
+/**
+ * Updates the UI to reflect which player's turn it is.
+ *
+ * @return {void} The function sets innerHTML of a specific SVG element based on current active player and theme settings.
+ */
 function updateActivePlayerUI(): void {
     const playerSVG = document.getElementById("playerSVG");
     if (!playerSVG) return;
@@ -229,6 +334,11 @@ function updateActivePlayerUI(): void {
     }
 }
 
+/**
+ * Updates the score displays for both players.
+ *
+ * @return {void} The function sets textContent of specific elements to reflect updated player scores according to current state.
+ */
 function updatePlayerStats(): void {
     const blue = document.getElementById("playerBlue");
     const orange = document.getElementById("playerOrange");
@@ -242,6 +352,11 @@ function updatePlayerStats(): void {
     }
 }
 
+/**
+ * Retrieves scores for both players.
+ *
+ * @return {{blue: number; orange: number}} An object containing the number of moves made by each player.
+ */
 function getScores(): Scores {
     const { p1 } = getPlayerColors();
     if (p1 === "blue") {
@@ -250,12 +365,22 @@ function getScores(): Scores {
     return { blue: player2Moves, orange: player1Moves };
 }
 
+/**
+ * Checks if the game has ended by comparing pairs matched with total number of pairs.
+ *
+ * @return {void} The function calls showGameOver() when game conditions are met for endgame state.
+ */
 function checkGameOver(): void {
     if (totalPairs > 0 && matchedPairs >= totalPairs) {
         showGameOver();
     }
 }
 
+/**
+ * Displays the game over screen.
+ *
+ * @return {void} The function updates content and styling for game over display based on current theme and player scores.
+ */
 function showGameOver(): void {
     const content = document.getElementById("gameOverContent");
     const screen = document.getElementById("gameOverScreen");
@@ -269,6 +394,14 @@ function showGameOver(): void {
     setTimeout(() => showResult(blue, orange, isGaming), 2500);
 }
 
+/**
+ * Updates the game over screen to show results.
+ *
+ * @param {number} blue - Number of moves made by player with "blue" color.
+ * @param {number} orange - Number of moves made by player with "orange" color.
+ * @param {boolean} isGaming - Boolean indicating if gaming theme is active.
+ * @return {void} The function sets HTML content to show winner or draw message and icon based on the outcome of the game.
+ */
 function showResult(blue: number, orange: number, isGaming: boolean): void {
     const content = document.getElementById("gameOverContent");
     if (!content) return;
@@ -289,10 +422,21 @@ function showResult(blue: number, orange: number, isGaming: boolean): void {
     content.innerHTML = winnerInnerHTML(displayName, `game-over__winner-name--${winner}`, iconSrc, confetti, btnLabel);
 }
 
+/**
+ * A simple utility function that creates a promise resolving after a specified time.
+ *
+ * @param {number} ms - Number of milliseconds to wait before resolve.
+ * @return {Promise<void>} The returned promise resolves once the sleep duration has passed.
+ */
 function sleep(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+/**
+ * Automatically plays through the game by selecting matching cards.
+ *
+ * @return {Promise<void>} The function asynchronously triggers selection events for pairs of cards with matching data attributes.
+ */
 async function autoPlay(): Promise<void> {
     const cards = Array.from(document.querySelectorAll<HTMLElement>("#gameLayout .flip"));
     const pairs: Record<string, HTMLElement[]> = {};
@@ -311,6 +455,11 @@ async function autoPlay(): Promise<void> {
     }
 }
 
+/**
+ * Initializes the application when DOM content is loaded.
+ *
+ * @return {void} The function sets up event listeners, initializes game state and starts the first screen.
+ */
 document.addEventListener("DOMContentLoaded", function () {
     init();
     showScreen("start");
@@ -327,6 +476,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/**
+ * Adds a keydown event listener to trigger automatic gameplay with Ctrl+P.
+ *
+ * @return {void} The function sets up an event listener for specific keyboard input and triggers autoPlay function when condition is met.
+ */
 document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key.toLowerCase() === "p") {
         e.preventDefault();

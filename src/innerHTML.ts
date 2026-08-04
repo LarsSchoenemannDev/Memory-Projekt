@@ -1,4 +1,14 @@
 
+/**
+ * Generates HTML content for a card in the game layout.
+ *
+ * @param {number} value - The numeric representation of the card's value.
+ * @param {number} i - Index of the current element within an array of cards.
+ * @param {string} imgSrc - The source URL to be used for the front image of the card.
+ * @param {string} frontImg - The source URL to display on the backside of the card before it's flipped over.
+ *
+ * @return {string} A string containing the HTML markup for a single game card element.
+ */
 export function gameLayoutInnerHTML(value: number, i: number, imgSrc: string, frontImg: string) {
     return `
     <button type="button" class="flip" data-card="${value}" data-card-index="${i}" aria-label="Card ${i + 1}">
@@ -14,7 +24,12 @@ export function gameLayoutInnerHTML(value: number, i: number, imgSrc: string, fr
     `;
 }
 
-export function playerSVGOrange() {
+/**
+ * Returns SVG icon representing orange player in code theme.
+ *
+ * @return {string} The HTML markup for the SVG element of an orange player.
+ */
+export function playerSVGOrange(): string {
     return `<svg class="theme-icon theme-icon--code" width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M2.46154 20C1.78462 20 1.20513 19.7552 0.723077 19.2656C0.241026 18.776 0 18.1875 0 17.5V2.5C0 1.8125 0.241026 1.22396 0.723077 0.734375C1.20513 0.244792 1.78462 0 2.46154 0H16C16.3897 0 16.759 0.0885417 17.1077 0.265625C17.4564 0.442708 17.7436 0.6875 17.9692 1L23.5077 8.5C23.8359 8.9375 24 9.4375 24 10C24 10.5625 23.8359 11.0625 23.5077 11.5L17.9692 19C17.7436 19.3125 17.4564 19.5573 17.1077 19.7344C16.759 19.9115 16.3897 20 16 20H2.46154Z" fill="#F58E39"/>
 </svg>
@@ -24,7 +39,12 @@ export function playerSVGOrange() {
 `
 }
 
-export function playerSVGBlue() {
+/**
+ * Returns SVG icon representing blue player in code theme.
+ *
+ * @return {string} The HTML markup for the SVG element of a blue player.
+ */
+export function playerSVGBlue(): string {
     return `<svg class="theme-icon theme-icon--code" width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M2.46154 20C1.78462 20 1.20513 19.7552 0.723077 19.2656C0.241026 18.776 0 18.1875 0 17.5V2.5C0 1.8125 0.241026 1.22396 0.723077 0.734375C1.20513 0.244792 1.78462 0 2.46154 0H16C16.3897 0 16.759 0.0885417 17.1077 0.265625C17.4564 0.442708 17.7436 0.6875 17.9692 1L23.5077 8.5C23.8359 8.9375 24 9.4375 24 10C24 10.5625 23.8359 11.0625 23.5077 11.5L17.9692 19C17.7436 19.3125 17.4564 19.5573 17.1077 19.7344C16.759 19.9115 16.3897 20 16 20H2.46154Z" fill="#2BB1FF"/>
 </svg>
@@ -34,10 +54,28 @@ export function playerSVGBlue() {
 `
 }
 
+/**
+ * Generates an SVG flag based on provided fill color.
+ *
+ * @param {string} fill - Color to use for filling the SVG flag.
+ *
+ * @return {string} The HTML markup for a colored SVG flag.
+ */
 function flagSVG(fill: string): string {
     return `<svg width="20" height="16" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2.46154 20C1.78462 20 1.20513 19.7552 0.723077 19.2656C0.241026 18.776 0 18.1875 0 17.5V2.5C0 1.8125 0.241026 1.22396 0.723077 0.734375C1.20513 0.244792 1.78462 0 2.46154 0H16C16.3897 0 16.759 0.0885417 17.1077 0.265625C17.4564 0.442708 17.7436 0.6875 17.9692 1L23.5077 8.5C23.8359 8.9375 24 9.4375 24 10C24 10.5625 23.8359 11.0625 23.5077 11.5L17.9692 19C17.7436 19.3125 17.4564 19.5573 17.1077 19.7344C16.759 19.9115 16.3897 20 16 20H2.46154Z" fill="${fill}"/></svg>`;
 }
 
+/**
+ * Generates inner HTML content for the game over screen.
+ *
+ * @param {number} blueScore - Number of moves made by player with "blue" color.
+ * @param {number} orangeScore - Number of moves made by player with "orange" color.
+ * @param {string} titleSrc - URL to the image that represents the game-over state.
+ * @param {string} blueFill - Fill color for the blue SVG flag representing one player.
+ * @param {string} orangeFill - Fill color for the orange SVG flag representing another player.
+ *
+ * @return {string} The HTML markup for the content of a game over screen, including scores and flags.
+ */
 export function gameOverInnerHTML(blueScore: number, orangeScore: number, titleSrc: string, blueFill: string, orangeFill: string) {
     return `
     <img class="game-over__title-img" src="${titleSrc}" alt="Game over">
@@ -49,10 +87,26 @@ export function gameOverInnerHTML(blueScore: number, orangeScore: number, titleS
     `;
 }
 
+/**
+ * Generates inner HTML content for the confetti display on game over screen.
+ *
+ * @return {string} The HTML markup for a confetti image to be displayed after winning or drawing in the game.
+ */
 export function confettiInnerHTML(): string {
     return `<img class="game-over__confetti" src="assets/img/Confetti.svg" alt="">`;
 }
 
+/**
+ * Generates HTML content for a screen that announces a player as a winner or shows it's a draw.
+ *
+ * @param {string} displayName - The name of the winning team/player (or 'Draw').
+ * @param {string} colorClass - CSS class specifying the color scheme to use.
+ * @param {string} iconSrc - URL path for an SVG icon representing the winner (draw).
+ * @param {string} confetti - HTML content for displaying a confetti image if it's not a draw.
+ * @param {string} btnLabel - Label to display on the button that leads back home.
+ *
+ * @return {string} The HTML markup for announcing who won or showing it was a draw, including an image and button.
+ */
 export function winnerInnerHTML(displayName: string, colorClass: string, iconSrc: string, confetti: string, btnLabel: string): string {
     return `
     ${confetti}
@@ -63,6 +117,15 @@ export function winnerInnerHTML(displayName: string, colorClass: string, iconSrc
     `;
 }
 
+/**
+ * Generates HTML content for the game-over screen when there's a draw.
+ *
+ * @param {string} titleSrc - URL path to an image representing the game-over state.
+ * @param {string} iconSrc - URL path for an SVG icon symbolizing the drawn result.
+ * @param {string} btnLabel - Label text for the button that leads back home after the game has ended in a draw.
+ *
+ * @return {string} The HTML markup to be used on the screen where a draw is announced, including an image and button.
+ */
 export function drawInnerHTML(titleSrc: string, iconSrc: string, btnLabel: string): string {
     return `
     <p class="game-over__winner">It's a</p>
